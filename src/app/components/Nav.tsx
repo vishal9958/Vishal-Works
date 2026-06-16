@@ -12,6 +12,24 @@ export function Nav() {
 
   const links = ["Services", "Work", "Process", "About", "Contact"];
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Calculate header height offset if necessary (Nav is 72px high)
+      const offset = 72;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <header
       style={{
@@ -28,7 +46,11 @@ export function Nav() {
       }}
     >
       <nav style={{ maxWidth: 1280, margin: "0 auto", padding: "0 2rem", height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
+        <a 
+          href="#" 
+          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}
+        >
           <div style={{ width: 32, height: 32, background: "#143D35", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M3 4L9 14L15 4" stroke="#C8A15A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -43,6 +65,7 @@ export function Nav() {
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
+              onClick={(e) => handleScroll(e, l.toLowerCase())}
               style={{ color: "#1B1B1B", textDecoration: "none", fontSize: "0.9rem", fontWeight: 500, opacity: 0.75, transition: "opacity 0.2s" }}
               onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
               onMouseLeave={e => (e.currentTarget.style.opacity = "0.75")}
@@ -52,6 +75,7 @@ export function Nav() {
           ))}
           <a
             href="#contact"
+            onClick={(e) => handleScroll(e, "contact")}
             style={{
               background: "#143D35", color: "#F5F4EE", padding: "0.55rem 1.35rem",
               borderRadius: 6, textDecoration: "none", fontSize: "0.875rem", fontWeight: 600,
@@ -85,13 +109,20 @@ export function Nav() {
           fontFamily: "'Manrope', sans-serif",
         }}>
           {links.map((l) => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}
-              style={{ color: "#1B1B1B", textDecoration: "none", fontSize: "1.05rem", fontWeight: 500 }}>
+            <a 
+              key={l} 
+              href={`#${l.toLowerCase()}`} 
+              onClick={(e) => { setMenuOpen(false); handleScroll(e, l.toLowerCase()); }}
+              style={{ color: "#1B1B1B", textDecoration: "none", fontSize: "1.05rem", fontWeight: 500 }}
+            >
               {l}
             </a>
           ))}
-          <a href="#contact" onClick={() => setMenuOpen(false)}
-            style={{ background: "#143D35", color: "#F5F4EE", padding: "0.75rem 1.5rem", borderRadius: 6, textDecoration: "none", fontSize: "0.9rem", fontWeight: 600, textAlign: "center" }}>
+          <a 
+            href="#contact" 
+            onClick={(e) => { setMenuOpen(false); handleScroll(e, "contact"); }}
+            style={{ background: "#143D35", color: "#F5F4EE", padding: "0.75rem 1.5rem", borderRadius: 6, textDecoration: "none", fontSize: "0.9rem", fontWeight: 600, textAlign: "center" }}
+          >
             Start a Project
           </a>
         </div>
