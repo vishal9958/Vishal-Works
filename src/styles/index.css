@@ -1,3 +1,15 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* Premium Text Selection Highlight */
+::selection {
+  background-color: #143D35; /* Brand Deep Green */
+  color: #F5F4EE;            /* Brand Warm Cream */
+}
+
+/* Disable dragging on images, logos, and icons globally */
+img, svg, .avatar, [class*="logo"] {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
