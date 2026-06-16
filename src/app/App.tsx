@@ -12,6 +12,12 @@ import { Footer } from "./components/Footer";
 
 export default function App() {
   useEffect(() => {
+    // 1. Remove initial URL hash if present
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+
+    // 2. Global scroll observer for visual elements
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -29,8 +35,44 @@ export default function App() {
     const elements = document.querySelectorAll(".reveal");
     elements.forEach((el) => observer.observe(el));
 
+    // 3. Global click interceptor for all hash anchors to prevent URL bar hash additions
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a");
+      if (!target) return;
+
+      const href = target.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        e.preventDefault();
+        
+        if (href === "#") {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        } else {
+          const targetId = href.substring(1);
+          const element = document.getElementById(targetId);
+          if (element) {
+            const offset = 72; // Header height
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
     return () => {
       elements.forEach((el) => observer.unobserve(el));
+      document.removeEventListener("click", handleAnchorClick);
     };
   }, []);
 
