@@ -12,7 +12,16 @@ import { Footer } from "./components/Footer";
 
 export default function App() {
   useEffect(() => {
-    // 1. Remove initial URL hash if present
+    // 1. Theme initialization (Light/Dark Mode)
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // 2. Remove initial URL hash if present
     if (window.location.hash) {
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
@@ -77,7 +86,7 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Manrope', sans-serif", background: "#F5F4EE", overflowX: "hidden" }}>
+    <div style={{ fontFamily: "'Manrope', sans-serif", background: "var(--bg-primary)", color: "var(--text-primary)", transition: "background-color 0.3s ease, color 0.3s ease", overflowX: "hidden", minHeight: "100vh" }}>
       <Nav />
       <main>
         <Hero />
@@ -97,8 +106,13 @@ export default function App() {
         body { font-family: 'Manrope', sans-serif; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(20,61,53,0.2); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(20,61,53,0.4); }
+        ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--primary) 20%, transparent); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--primary) 40%, transparent); }
+
+        input::placeholder, textarea::placeholder {
+          color: var(--text-secondary);
+          opacity: 0.65;
+        }
 
         /* Scroll Reveal Animation Styles */
         .reveal {
@@ -132,6 +146,24 @@ export default function App() {
         }
         .btn-arrow:hover svg {
           transform: translateX(4px);
+        }
+
+        /* Global Mobile Padding and Typography overrides */
+        @media (max-width: 600px) {
+          section {
+            padding: 4.5rem 1.25rem !important;
+          }
+          .hero-grid {
+            padding: 4.5rem 1.25rem 3rem !important;
+            gap: 2.5rem !important;
+          }
+          footer > div {
+            padding: 3rem 1.25rem 2rem !important;
+          }
+          .floating-theme-btn {
+            bottom: 1.25rem !important;
+            right: 1.25rem !important;
+          }
         }
       `}</style>
     </div>

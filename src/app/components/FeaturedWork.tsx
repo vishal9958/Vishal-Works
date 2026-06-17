@@ -85,38 +85,53 @@ export function FeaturedWork() {
       img.src = proj.image;
     });
   }, []);
-
   return (
-    <section id="work" style={{ background: "#ffffff", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="work" style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease" }}>
+      {/* Background Glow Bubbles for Glassmorphism */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+        {/* Glow bubble directly behind the image and results on the left */}
+        <div style={{
+          position: "absolute", bottom: "10%", left: "5%", width: 500, height: 500,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 15%, transparent)",
+          filter: "blur(70px)",
+        }} />
+        <div style={{
+          position: "absolute", top: "10%", right: "-5%", width: 400, height: 400,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
+          filter: "blur(60px)",
+        }} />
+      </div>
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem", marginBottom: "3.5rem" }} className="reveal">
           <div style={{ maxWidth: 500 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-              <div style={{ width: 24, height: 1.5, background: "#C8A15A" }} />
-              <span style={{ color: "#C8A15A", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Featured Work</span>
+              <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
+              <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Featured Work</span>
             </div>
-            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "#1B1B1B", letterSpacing: "-0.025em", lineHeight: 1.15 }}>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15 }}>
               Results, not just<br />
-              <span style={{ color: "#143D35" }}>beautiful work</span>
+              <span style={{ color: "var(--primary)" }}>beautiful work</span>
             </h2>
           </div>
-          <div style={{ display: "flex", gap: "0.75rem" }}>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             {projects.map((pr, i) => (
               <button
                 key={pr.id}
                 onClick={() => setActive(i)}
                 style={{
                   fontFamily: "'Manrope', sans-serif",
-                  background: active === i ? "#143D35" : "#F5F4EE",
-                  color: active === i ? "#fff" : "#1B1B1B",
-                  border: "1px solid",
-                  borderColor: active === i ? "#143D35" : "rgba(20,61,53,0.12)",
+                  background: active === i ? "var(--primary)" : "var(--glass-card-on-white)",
+                  color: active === i ? "var(--primary-foreground)" : "var(--text-primary)",
+                  border: "1px solid var(--glass-border)",
+                  backdropFilter: active === i ? "none" : "var(--glass-blur)",
+                  WebkitBackdropFilter: active === i ? "none" : "var(--glass-blur)",
                   borderRadius: 100,
                   padding: "0.45rem 1rem",
                   fontSize: "0.8rem",
                   fontWeight: 600,
                   cursor: "pointer",
-                  transition: "all 0.2s",
+                  transition: "all 0.2s, background-color 0.3s, border-color 0.3s",
                 }}
               >
                 {`0${i + 1}`}
@@ -128,23 +143,37 @@ export function FeaturedWork() {
         <div key={p.id} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "start" }} className="work-grid fade-in-animation">
           {/* Image side */}
           <div>
-            <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.12)" }}>
+            <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "var(--glass-shadow)" }}>
               <img
                 src={p.image}
                 alt={p.client}
                 style={{ width: "100%", height: 380, objectFit: "cover", display: "block" }}
               />
               <div style={{ position: "absolute", inset: 0, background: `${p.color}40` }} />
-              <div style={{ position: "absolute", top: "1.5rem", left: "1.5rem", background: "rgba(255,255,255,0.95)", borderRadius: 8, padding: "0.5rem 0.875rem" }}>
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#1B1B1B", letterSpacing: "0.02em" }}>{p.category}</span>
+              <div className="glass-panel" style={{
+                position: "absolute", top: "1.5rem", left: "1.5rem",
+                borderRadius: 8, padding: "0.5rem 0.875rem",
+              }}>
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "0.02em" }}>{p.category}</span>
               </div>
             </div>
 
             {/* Results */}
             <div style={{ display: "flex", gap: "1rem", marginTop: "1.5rem", flexWrap: "wrap" }} className="results-container">
               {p.results.map((r) => (
-                <div key={r} style={{ flex: 1, background: "#F5F4EE", borderRadius: 12, padding: "1rem", border: "1px solid rgba(20,61,53,0.08)", textAlign: "center" }}>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#143D35" }}>{r}</div>
+                <div key={r} style={{
+                  flex: 1,
+                  background: "var(--glass-card-on-white)",
+                  backdropFilter: "var(--glass-blur)",
+                  WebkitBackdropFilter: "var(--glass-blur)",
+                  borderRadius: 12,
+                  padding: "1rem",
+                  border: "1px solid var(--glass-border)",
+                  boxShadow: "var(--glass-shadow)",
+                  textAlign: "center",
+                  transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s"
+                }}>
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--primary)", transition: "color 0.3s" }}>{r}</div>
                 </div>
               ))}
             </div>
@@ -152,25 +181,25 @@ export function FeaturedWork() {
 
           {/* Content side */}
           <div>
-            <div style={{ display: "inline-block", background: "#143D35", color: "#C8A15A", borderRadius: 6, padding: "0.3rem 0.75rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "1.5rem" }}>
+            <div style={{ display: "inline-block", background: "var(--case-study-bg)", color: "var(--case-study-text)", borderRadius: 6, padding: "0.3rem 0.75rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "1.5rem", transition: "background-color 0.3s, color 0.3s" }}>
               Case Study
             </div>
-            <h3 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 800, color: "#1B1B1B", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: "0.75rem" }}>
+            <h3 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.2, marginBottom: "0.75rem" }}>
               {p.client}
             </h3>
-            <p style={{ fontSize: "1rem", color: "#143D35", fontWeight: 600, fontStyle: "italic", marginBottom: "2rem" }}>"{p.tagline}"</p>
+            <p style={{ fontSize: "1rem", color: "var(--primary)", fontWeight: 600, fontStyle: "italic", marginBottom: "2rem", transition: "color 0.3s" }}>"{p.tagline}"</p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               {[
                 { label: "The Problem", text: p.problem, icon: "⚠️" },
                 { label: "Our Solution", text: p.solution, icon: "✦" },
               ].map((item) => (
-                <div key={item.label} style={{ borderLeft: "2px solid rgba(20,61,53,0.15)", paddingLeft: "1.25rem" }}>
+                <div key={item.label} style={{ borderLeft: "2px solid color-mix(in srgb, var(--primary) 30%, transparent)", paddingLeft: "1.25rem", transition: "border-color 0.3s" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                     <span>{item.icon}</span>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#C8A15A", letterSpacing: "0.06em", textTransform: "uppercase" }}>{item.label}</span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", letterSpacing: "0.06em", textTransform: "uppercase", transition: "color 0.3s" }}>{item.label}</span>
                   </div>
-                  <p style={{ fontSize: "0.9rem", color: "#666666", lineHeight: 1.7 }}>{item.text}</p>
+                  <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.7, transition: "color 0.3s" }}>{item.text}</p>
                 </div>
               ))}
             </div>
@@ -182,12 +211,12 @@ export function FeaturedWork() {
               className="btn-diagonal"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.5rem", marginTop: "2rem",
-                background: "#143D35", color: "#F5F4EE", padding: "0.75rem 1.5rem",
+                background: "var(--primary)", color: "var(--primary-foreground)", padding: "0.75rem 1.5rem",
                 borderRadius: 8, textDecoration: "none", fontSize: "0.875rem", fontWeight: 600,
-                transition: "background 0.2s, transform 0.2s",
+                transition: "background 0.2s, transform 0.2s, filter 0.2s",
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = "#1a5247")}
-              onMouseLeave={e => (e.currentTarget.style.background = "#143D35")}
+              onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
             >
               Explore Live Template
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

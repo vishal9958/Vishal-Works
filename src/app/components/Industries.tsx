@@ -66,34 +66,48 @@ const industries = [
 export function Industries() {
   const [active, setActive] = useState(industries[0].id);
   const current = industries.find((i) => i.id === active)!;
-
   return (
-    <section id="industries" style={{ background: "#F5F4EE", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="industries" style={{ position: "relative", overflow: "hidden", background: "var(--bg-secondary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease" }}>
+      {/* Background Glow Bubbles for Glassmorphism */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+        {/* Glow bubble directly behind the preview panel */}
+        <div style={{
+          position: "absolute", top: "15%", left: "35%", width: 550, height: 550,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 14%, transparent)",
+          filter: "blur(80px)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "10%", left: "-5%", width: 350, height: 350,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
+          filter: "blur(60px)",
+        }} />
+      </div>
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 560, marginBottom: "3.5rem" }} className="reveal">
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-            <div style={{ width: 24, height: 1.5, background: "#C8A15A" }} />
-            <span style={{ color: "#C8A15A", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Industries</span>
+            <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
+            <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Industries</span>
           </div>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "#1B1B1B", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
             We speak your<br />
-            <span style={{ color: "#143D35" }}>industry's language</span>
+            <span style={{ color: "var(--primary)" }}>industry's language</span>
           </h2>
-          <p style={{ color: "#666666", fontSize: "1rem", lineHeight: 1.7 }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.7 }}>
             Deep experience across sectors means faster delivery and better outcomes for your business.
           </p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "2rem", alignItems: "start" }} className="industries-grid reveal reveal-delay-1">
           {/* Category tabs */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <div className="industries-tabs" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {industries.map((ind) => (
               <button
                 key={ind.id}
                 onClick={() => setActive(ind.id)}
                 style={{
-                  background: active === ind.id ? "#143D35" : "transparent",
-                  border: active === ind.id ? "none" : "1px solid rgba(20,61,53,0.1)",
+                  background: active === ind.id ? "var(--primary)" : "transparent",
+                  border: active === ind.id ? "none" : "1px solid var(--glass-border)",
                   borderRadius: 10,
                   padding: "0.85rem 1.25rem",
                   display: "flex",
@@ -103,16 +117,16 @@ export function Industries() {
                   transition: "all 0.2s",
                   textAlign: "left",
                 }}
-                onMouseEnter={e => { if (active !== ind.id) e.currentTarget.style.background = "#ffffff"; }}
-                onMouseLeave={e => { if (active !== ind.id) e.currentTarget.style.background = "transparent"; }}
+                onMouseEnter={e => { if (active !== ind.id) { e.currentTarget.style.background = "var(--bg-primary)"; e.currentTarget.style.borderColor = "var(--primary)"; } }}
+                onMouseLeave={e => { if (active !== ind.id) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "var(--glass-border)"; } }}
               >
                 <span style={{ fontSize: "1.1rem" }}>{ind.icon}</span>
-                <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: "0.9rem", color: active === ind.id ? "#fff" : "#1B1B1B" }}>
+                <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: "0.9rem", color: active === ind.id ? "var(--primary-foreground)" : "var(--text-primary)" }}>
                   {ind.label}
                 </span>
                 {active === ind.id && (
                   <svg style={{ marginLeft: "auto" }} width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M3 7H11M7.5 3.5L11 7L7.5 10.5" stroke="#C8A15A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M3 7H11M7.5 3.5L11 7L7.5 10.5" stroke="var(--primary-foreground)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 )}
               </button>
@@ -121,12 +135,16 @@ export function Industries() {
 
           {/* Preview panel */}
           <div style={{
-            background: "#ffffff",
+            background: "var(--glass-card-on-cream)",
+            backdropFilter: "var(--glass-blur)",
+            WebkitBackdropFilter: "var(--glass-blur)",
+            border: "1px solid var(--glass-border)",
+            boxShadow: "var(--glass-shadow)",
             borderRadius: 20,
             overflow: "hidden",
-            border: "1px solid rgba(20,61,53,0.08)",
+            transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s"
           }}>
-            <div style={{ position: "relative", height: 280, background: "#ddd", overflow: "hidden" }}>
+            <div style={{ position: "relative", height: 280, background: "color-mix(in srgb, var(--primary) 10%, transparent)", overflow: "hidden" }}>
               <img
                 src={current.image}
                 alt={current.label}
@@ -141,9 +159,9 @@ export function Industries() {
             </div>
             <div style={{ padding: "1.75rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
               {current.metrics.map((m) => (
-                <div key={m} style={{ background: "#F5F4EE", borderRadius: 8, padding: "0.6rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem", border: "1px solid rgba(20,61,53,0.08)" }}>
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8A15A" }} />
-                  <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "#1B1B1B" }}>{m}</span>
+                <div key={m} style={{ background: "var(--bg-secondary)", borderRadius: 8, padding: "0.6rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem", border: "1px solid var(--glass-border)", transition: "background-color 0.3s, border-color 0.3s" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
+                  <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-primary)", transition: "color 0.3s" }}>{m}</span>
                 </div>
               ))}
             </div>
@@ -155,6 +173,21 @@ export function Industries() {
         @media (max-width: 768px) {
           .industries-grid {
             grid-template-columns: 1fr !important;
+          }
+          .industries-tabs {
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+          }
+          .industries-tabs::-webkit-scrollbar {
+            display: none; /* Hide scrollbar Chrome/Safari */
+          }
+          .industries-tabs button {
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
           }
         }
       `}</style>

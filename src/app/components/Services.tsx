@@ -79,19 +79,33 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" style={{ background: "#ffffff", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="services" style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease" }}>
+      {/* Background Glow Bubbles for Glassmorphism */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+        <div style={{
+          position: "absolute", top: "15%", left: "-5%", width: 350, height: 350,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 15%, transparent)",
+          filter: "blur(60px)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "10%", right: "-5%", width: 400, height: 400,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
+          filter: "blur(70px)",
+        }} />
+      </div>
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         {/* Header */}
         <div style={{ maxWidth: 560, marginBottom: "4rem" }} className="reveal">
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-            <div style={{ width: 24, height: 1.5, background: "#C8A15A" }} />
-            <span style={{ color: "#C8A15A", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>What We Do</span>
+            <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
+            <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>What We Do</span>
           </div>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "#1B1B1B", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
             Services built for<br />
-            <span style={{ color: "#143D35" }}>business impact</span>
+            <span style={{ color: "var(--primary)" }}>business impact</span>
           </h2>
-          <p style={{ color: "#666666", fontSize: "1rem", lineHeight: 1.7 }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.7 }}>
             Every service is crafted to deliver measurable results — not just beautiful work.
           </p>
         </div>
@@ -107,19 +121,19 @@ export function Services() {
                 {/* Front Side */}
                 <div className="service-flip-card-front">
                   {/* Tag */}
-                  <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "#F5F4EE", borderRadius: 100, padding: "0.2rem 0.65rem", fontSize: "0.65rem", fontWeight: 700, color: "#143D35", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                  <div style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "var(--bg-secondary)", borderRadius: 100, padding: "0.2rem 0.65rem", fontSize: "0.65rem", fontWeight: 700, color: "var(--primary)", letterSpacing: "0.06em", textTransform: "uppercase", transition: "background-color 0.3s, color 0.3s" }}>
                     {s.tag}
                   </div>
 
-                  <div style={{ width: 48, height: 48, background: "#F5F4EE", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem", color: "#143D35" }}>
+                  <div style={{ width: 48, height: 48, background: "var(--bg-secondary)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem", color: "var(--primary)", transition: "background-color 0.3s, color 0.3s" }}>
                     {s.icon}
                   </div>
 
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#1B1B1B", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>{s.title}</h3>
-                  <p style={{ fontSize: "0.88rem", color: "#666666", lineHeight: 1.55 }}>{s.desc}</p>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>{s.title}</h3>
+                  <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{s.desc}</p>
                   
                   {/* Learn More Button */}
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "#143D35", fontSize: "0.85rem", fontWeight: 700, marginTop: "auto" }}>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700, marginTop: "auto", transition: "color 0.3s" }}>
                     <span>Learn more</span>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                       <path d="M2 6H10M10 6L7 3M10 6L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -184,24 +198,26 @@ export function Services() {
           backface-visibility: hidden;
           border-radius: 20px;
           box-sizing: border-box;
-          border: 1px solid rgba(20, 61, 53, 0.08);
-          box-shadow: 0 10px 30px rgba(20, 61, 53, 0.03);
+          border: 1px solid var(--glass-border);
+          box-shadow: var(--glass-shadow);
           overflow: hidden;
         }
         .service-flip-card-front {
-          background: #fff;
-          color: #1B1B1B;
+          background: var(--glass-card-on-white);
+          backdrop-filter: var(--glass-blur);
+          -webkit-backdrop-filter: var(--glass-blur);
+          color: var(--text-primary);
           padding: 1.75rem 1.5rem;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
           text-align: left;
+          transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
         .service-flip-card-back {
           transform: rotateY(180deg);
-          border-color: rgba(20, 61, 53, 0.1);
-          box-shadow: 0 16px 40px rgba(20, 61, 53, 0.12);
+          border-color: rgba(200, 161, 90, 0.15);
         }
 
         @media (max-width: 991px) {

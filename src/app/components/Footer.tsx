@@ -25,19 +25,21 @@ export function Footer() {
   };
 
   return (
-    <footer style={{ background: "#0E2E28", fontFamily: "'Manrope', sans-serif" }}>
+    <footer style={{ background: "var(--bg-secondary)", borderTop: "1px solid var(--glass-border)", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s, border-color 0.3s" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "5rem 2rem 3rem" }}>
         {/* Top CTA strip */}
         <div style={{
-          background: "#143D35", borderRadius: 20, padding: "3rem", marginBottom: "5rem",
+          background: "var(--primary)", borderRadius: 20, padding: "3rem", marginBottom: "5rem",
           display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "2rem",
-          border: "1px solid rgba(200,161,90,0.15)",
+          border: "1px solid var(--glass-border)",
+          boxShadow: "var(--glass-shadow)",
+          transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s",
         }}>
           <div>
-            <h3 style={{ color: "#fff", fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "0.5rem" }}>
+            <h3 style={{ color: "var(--primary-foreground)", fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "0.5rem" }}>
               Ready to grow your business online?
             </h3>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}>
+            <p style={{ color: "color-mix(in srgb, var(--primary-foreground) 75%, transparent)", fontSize: "0.9rem" }}>
               Join 50+ businesses that trusted Vishal Works with their digital presence.
             </p>
           </div>
@@ -45,25 +47,25 @@ export function Footer() {
             <a
               href="#contact"
               style={{
-                background: "#C8A15A", color: "#1B1B1B", padding: "0.75rem 1.5rem",
+                background: "var(--primary-foreground)", color: "var(--primary)", padding: "0.75rem 1.5rem",
                 borderRadius: 8, textDecoration: "none", fontSize: "0.875rem", fontWeight: 700,
-                transition: "background 0.2s",
+                transition: "background 0.2s, color 0.2s, filter 0.2s",
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = "#d4af70")}
-              onMouseLeave={e => (e.currentTarget.style.background = "#C8A15A")}
+              onMouseEnter={e => (e.currentTarget.style.filter = "brightness(0.92)")}
+              onMouseLeave={e => (e.currentTarget.style.filter = "none")}
             >
               Start a Project
             </a>
             <a
               href="#work"
               style={{
-                background: "transparent", color: "#fff", padding: "0.75rem 1.5rem",
+                background: "transparent", color: "var(--primary-foreground)", padding: "0.75rem 1.5rem",
                 borderRadius: 8, textDecoration: "none", fontSize: "0.875rem", fontWeight: 600,
-                border: "1.5px solid rgba(255,255,255,0.2)",
-                transition: "border-color 0.2s",
+                border: "1.5px solid color-mix(in srgb, var(--primary-foreground) 30%, transparent)",
+                transition: "border-color 0.2s, color 0.2s",
               }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.5)")}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)")}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--primary-foreground)")}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = "color-mix(in srgb, var(--primary-foreground) 30%, transparent)")}
             >
               View Our Work
             </a>
@@ -75,14 +77,14 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-              <div style={{ width: 32, height: 32, background: "#C8A15A", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 32, height: 32, background: "var(--primary)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", transition: "background-color 0.3s" }}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3 4L9 14L15 4" stroke="#143D35" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 4L9 14L15 4" stroke="var(--primary-foreground)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span style={{ color: "#fff", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>Vishal Works</span>
+              <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>Vishal Works</span>
             </div>
-            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", lineHeight: 1.7, maxWidth: 280, marginBottom: "1.5rem" }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: 1.7, maxWidth: 280, marginBottom: "1.5rem" }}>
               Premium digital studio crafting websites and brand experiences for businesses ready to grow.
             </p>
             {/* Social icons */}
@@ -97,12 +99,13 @@ export function Footer() {
                   href="#"
                   aria-label={s.label}
                   style={{
-                    width: 36, height: 36, background: "rgba(255,255,255,0.07)", borderRadius: 8,
+                    width: 36, height: 36, background: "var(--bg-primary)", borderRadius: 8,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "rgba(255,255,255,0.5)", transition: "background 0.2s, color 0.2s",
+                    color: "var(--text-secondary)", border: "1px solid var(--glass-border)",
+                    transition: "background 0.2s, color 0.2s, border-color 0.2s",
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(200,161,90,0.15)"; e.currentTarget.style.color = "#C8A15A"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.07)"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "var(--primary)"; e.currentTarget.style.color = "var(--primary-foreground)"; e.currentTarget.style.borderColor = "var(--primary)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-primary)"; e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.borderColor = "var(--glass-border)"; }}
                 >
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                     <path d={s.path}/>
@@ -115,7 +118,7 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(links).map(([cat, items]) => (
             <div key={cat}>
-              <div style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.25rem" }}>
+              <div style={{ color: "var(--accent)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.25rem", transition: "color 0.3s" }}>
                 {cat}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
@@ -125,9 +128,9 @@ export function Footer() {
                     href={getFooterLink(cat, item)}
                     target={cat === "Contact" && (item === "WhatsApp" || item === "Book a Call" || item.includes("@")) ? "_blank" : undefined}
                     rel={cat === "Contact" && (item === "WhatsApp" || item === "Book a Call" || item.includes("@")) ? "noopener noreferrer" : undefined}
-                    style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s", display: "inline-block" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
+                    style={{ color: "var(--text-secondary)", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s", display: "inline-block" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--text-primary)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "var(--text-secondary)")}
                   >
                     {item}
                   </a>
@@ -138,8 +141,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.8rem" }}>
+        <div style={{ borderTop: "1px solid var(--glass-border)", paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", transition: "border-color 0.3s" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem" }}>
             © {new Date().getFullYear()} Vishal Works. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
@@ -147,9 +150,9 @@ export function Footer() {
               <a
                 key={link}
                 href="#"
-                style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.8rem", textDecoration: "none", transition: "color 0.2s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.35)")}
+                style={{ color: "var(--text-secondary)", fontSize: "0.8rem", textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "var(--text-primary)")}
+                onMouseLeave={e => (e.currentTarget.style.color = "var(--text-secondary)")}
               >
                 {link}
               </a>

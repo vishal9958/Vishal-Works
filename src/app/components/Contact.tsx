@@ -55,20 +55,34 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" style={{ background: "#fff", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="contact" style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease" }}>
+      {/* Background Glow Bubbles for Glassmorphism */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+        <div style={{
+          position: "absolute", top: "30%", right: "-5%", width: 350, height: 350,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
+          filter: "blur(60px)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "20%", left: "-5%", width: 300, height: 300,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 15%, transparent)",
+          filter: "blur(50px)",
+        }} />
+      </div>
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6rem", alignItems: "start" }} className="contact-grid">
           {/* Left */}
           <div className="reveal">
             <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-              <div style={{ width: 24, height: 1.5, background: "#C8A15A" }} />
-              <span style={{ color: "#C8A15A", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Get in Touch</span>
+              <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
+              <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Get in Touch</span>
             </div>
-            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "#1B1B1B", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1.25rem" }}>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1.25rem" }}>
               Let's Build Something<br />
-              <span style={{ color: "#143D35" }}>Great Together</span>
+              <span style={{ color: "var(--primary)" }}>Great Together</span>
             </h2>
-            <p style={{ color: "#666666", fontSize: "1rem", lineHeight: 1.7, marginBottom: "3rem", maxWidth: 420 }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "3rem", maxWidth: 420 }}>
               Whether you're a startup launching your first product or an established business ready for a digital upgrade — we'd love to hear from you.
             </p>
 
@@ -80,22 +94,22 @@ export function Contact() {
                 rel="noreferrer"
                 style={{
                   display: "flex", alignItems: "center", gap: "1rem",
-                  background: "#143D35", color: "#F5F4EE",
+                  background: "var(--primary)", color: "var(--primary-foreground)",
                   padding: "1rem 1.5rem", borderRadius: 12,
-                  textDecoration: "none", transition: "background 0.2s",
+                  textDecoration: "none", transition: "background 0.2s, filter 0.2s",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#1a5247")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#143D35")}
+                onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.15)")}
+                onMouseLeave={e => (e.currentTarget.style.filter = "none")}
               >
                 <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.12)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="3" y="4" width="14" height="13" rx="2" stroke="white" strokeWidth="1.5"/>
-                    <path d="M7 2V6M13 2V6M3 9H17" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M7 2V6M13 2V6M3 9H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Book a Free Call</div>
-                  <div style={{ fontSize: "0.75rem", opacity: 0.7 }}>30-minute strategy session</div>
+                  <div style={{ fontSize: "0.75rem", opacity: 0.75 }}>30-minute strategy session</div>
                 </div>
               </a>
 
@@ -107,10 +121,10 @@ export function Contact() {
                   display: "flex", alignItems: "center", gap: "1rem",
                   background: "#25D366", color: "#fff",
                   padding: "1rem 1.5rem", borderRadius: 12,
-                  textDecoration: "none", transition: "background 0.2s",
+                  textDecoration: "none", transition: "background 0.2s, filter 0.2s",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#20bd5a")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#25D366")}
+                onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.15)")}
+                onMouseLeave={e => (e.currentTarget.style.filter = "none")}
               >
                 <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
@@ -132,31 +146,31 @@ export function Contact() {
                 ["Availability", "Available for new projects"],
               ].map(([label, value]) => (
                 <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#C8A15A", letterSpacing: "0.06em", textTransform: "uppercase", width: 120, flexShrink: 0 }}>{label}</span>
-                  <span style={{ fontSize: "0.875rem", color: "#1B1B1B" }}>{value}</span>
+                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", letterSpacing: "0.06em", textTransform: "uppercase", width: 120, flexShrink: 0, transition: "color 0.3s" }}>{label}</span>
+                  <span style={{ fontSize: "0.875rem", color: "var(--text-primary)", transition: "color 0.3s" }}>{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right — form */}
-          <div style={{ background: "#F5F4EE", borderRadius: 20, padding: "2.5rem", border: "1px solid rgba(20,61,53,0.08)" }} className="reveal reveal-delay-2">
+          <div className="reveal reveal-delay-2" style={{ background: "var(--glass-card-on-white)", backdropFilter: "var(--glass-blur)", WebkitBackdropFilter: "var(--glass-blur)", border: "1px solid var(--glass-border)", borderRadius: 20, padding: "2.5rem", boxShadow: "var(--glass-shadow)", transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s" }}>
             {sent ? (
               <div style={{ textAlign: "center", padding: "2rem" }}>
-                <div style={{ width: 64, height: 64, background: "#143D35", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
+                <div style={{ width: 64, height: 64, background: "var(--primary)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", transition: "background-color 0.3s" }}>
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <path d="M6 14L11 19L22 8" stroke="#C8A15A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M6 14L11 19L22 8" stroke="var(--primary-foreground)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h3 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#1B1B1B", marginBottom: "0.75rem" }}>Message Sent!</h3>
-                <p style={{ color: "#666666", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                <h3 style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.75rem" }}>Message Sent!</h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.6 }}>
                   Thank you for reaching out. We'll get back to you within 24 hours.
                 </p>
               </div>
             ) : (
               <>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#1B1B1B", marginBottom: "0.5rem" }}>Start a Project</h3>
-                <p style={{ fontSize: "0.85rem", color: "#666666", marginBottom: "2rem" }}>Tell us about your project and we'll get back to you within 24 hours.</p>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>Start a Project</h3>
+                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "2rem" }}>Tell us about your project and we'll get back to you within 24 hours.</p>
 
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   {[
@@ -165,7 +179,7 @@ export function Contact() {
                     { key: "business", label: "Business Type", placeholder: "Cafe, Restaurant, Startup...", type: "text" },
                   ].map((field) => (
                     <div key={field.key}>
-                      <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#1B1B1B", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
+                      <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
                         {field.label}
                       </label>
                       <input
@@ -175,19 +189,19 @@ export function Contact() {
                         onChange={e => setForm({ ...form, [field.key]: e.target.value })}
                         required
                         style={{
-                          width: "100%", background: "#fff", border: "1.5px solid rgba(20,61,53,0.12)",
+                          width: "100%", background: "var(--bg-primary)", border: "1.5px solid var(--glass-border)",
                           borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem",
-                          color: "#1B1B1B", outline: "none", fontFamily: "'Manrope', sans-serif",
-                          transition: "border-color 0.2s", boxSizing: "border-box",
+                          color: "var(--text-primary)", outline: "none", fontFamily: "'Manrope', sans-serif",
+                          transition: "border-color 0.2s, background-color 0.2s", boxSizing: "border-box",
                         }}
-                        onFocus={e => (e.currentTarget.style.borderColor = "#143D35")}
-                        onBlur={e => (e.currentTarget.style.borderColor = "rgba(20,61,53,0.12)")}
+                        onFocus={e => (e.currentTarget.style.borderColor = "var(--primary)")}
+                        onBlur={e => (e.currentTarget.style.borderColor = "var(--glass-border)")}
                       />
                     </div>
                   ))}
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#1B1B1B", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
                       Tell us about your project
                     </label>
                     <textarea
@@ -197,13 +211,13 @@ export function Contact() {
                       rows={4}
                       required
                       style={{
-                        width: "100%", background: "#fff", border: "1.5px solid rgba(20,61,53,0.12)",
+                        width: "100%", background: "var(--bg-primary)", border: "1.5px solid var(--glass-border)",
                         borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem",
-                        color: "#1B1B1B", outline: "none", fontFamily: "'Manrope', sans-serif",
-                        resize: "vertical", transition: "border-color 0.2s", boxSizing: "border-box",
+                        color: "var(--text-primary)", outline: "none", fontFamily: "'Manrope', sans-serif",
+                        resize: "vertical", transition: "border-color 0.2s, background-color 0.2s", boxSizing: "border-box",
                       }}
-                      onFocus={e => (e.currentTarget.style.borderColor = "#143D35")}
-                      onBlur={e => (e.currentTarget.style.borderColor = "rgba(20,61,53,0.12)")}
+                      onFocus={e => (e.currentTarget.style.borderColor = "var(--primary)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--glass-border)")}
                     />
                   </div>
 
@@ -211,15 +225,15 @@ export function Contact() {
                     type="submit"
                     className="btn-arrow"
                     style={{
-                      background: "#143D35", color: "#F5F4EE",
+                      background: "var(--primary)", color: "var(--primary-foreground)",
                       padding: "0.875rem 2rem", borderRadius: 8, border: "none",
                       fontSize: "0.9rem", fontWeight: 700, cursor: "pointer",
                       fontFamily: "'Manrope', sans-serif",
-                      transition: "background 0.2s, transform 0.2s",
+                      transition: "background 0.2s, transform 0.2s, filter 0.2s",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "#1a5247")}
-                    onMouseLeave={e => (e.currentTarget.style.background = "#143D35")}
+                    onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
                   >
                     {loading ? "Sending..." : "Send Message"}
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
