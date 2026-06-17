@@ -64,63 +64,78 @@ const steps = [
 
 export function Process() {
   return (
-    <section id="process" style={{ background: "#143D35", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="process" style={{ background: "var(--bg-secondary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease", position: "relative", overflow: "hidden" }}>
+      {/* Background Glow Bubbles for Glassmorphism */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+        <div style={{
+          position: "absolute", top: "25%", left: "15%", width: 450, height: 450,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 14%, transparent)",
+          filter: "blur(80px)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "15%", right: "15%", width: 400, height: 400,
+          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
+          filter: "blur(70px)",
+        }} />
+      </div>
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 560, marginBottom: "5rem" }} className="reveal">
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-            <div style={{ width: 24, height: 1.5, background: "#C8A15A" }} />
-            <span style={{ color: "#C8A15A", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Our Process</span>
+            <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
+            <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Our Process</span>
           </div>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1rem" }}>
             From brief to launch<br />in a structured sprint
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1rem", lineHeight: 1.75 }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.75 }}>
             No guesswork, no sudden delays. Just a structured, transparent timeline built to deliver peak visual performance.
           </p>
         </div>
 
         {/* Steps */}
         <div style={{ position: "relative" }}>
-          {/* Connecting line */}
-          <div style={{ position: "absolute", top: 32, left: 32, right: "calc(20% - 19px)", height: 1.5, background: "rgba(200,161,90,0.2)" }} className="process-line" />
-
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1.5rem" }} className="process-grid">
             {steps.map((step, i) => (
-              <div key={step.num} style={{ position: "relative" }} className={`reveal reveal-delay-${i + 1}`}>
-                {/* Number circle */}
-                <div style={{
-                  width: 64, height: 64, borderRadius: "50%",
-                  background: i === 0 ? "#C8A15A" : "rgba(255,255,255,0.08)",
-                  border: `2px solid ${i === 0 ? "#C8A15A" : "rgba(200,161,90,0.3)"}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  marginBottom: "1.5rem", position: "relative", zIndex: 1,
-                  color: i === 0 ? "#143D35" : "rgba(255,255,255,0.6)",
-                  transition: "background 0.2s, border-color 0.2s",
+              <div
+                key={step.num}
+                className={`reveal reveal-delay-${(i % 5) + 1}`}
+                style={{
+                  background: "var(--glass-card-on-cream)",
+                  backdropFilter: "var(--glass-blur)",
+                  WebkitBackdropFilter: "var(--glass-blur)",
+                  borderRadius: 20,
+                  padding: "2rem 1.5rem",
+                  border: "1px solid var(--glass-border)",
+                  boxShadow: "var(--glass-shadow)",
+                  transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s ease",
                   cursor: "default",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = "#C8A15A";
-                    e.currentTarget.style.color = "#143D35";
-                    e.currentTarget.style.borderColor = "#C8A15A";
-                  }}
-                  onMouseLeave={e => {
-                    if (i !== 0) {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                      e.currentTarget.style.color = "rgba(255,255,255,0.6)";
-                      e.currentTarget.style.borderColor = "rgba(200,161,90,0.3)";
-                    }
-                  }}
-                >
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = "var(--primary)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.borderColor = "var(--glass-border)"; }}
+              >
+                {/* Icon Circle */}
+                <div style={{
+                  width: 48, height: 48, borderRadius: "50%",
+                  background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  marginBottom: "1.5rem",
+                  color: "var(--primary)",
+                  transition: "background 0.3s, color 0.3s",
+                }}>
                   {step.icon}
                 </div>
 
-                <div style={{ padding: "0 0.25rem" }}>
-                  <div style={{ color: "#C8A15A", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", marginBottom: "0.35rem" }}>{step.num}</div>
-                  <h3 style={{ color: "#fff", fontSize: "1rem", fontWeight: 700, letterSpacing: "-0.01em", marginBottom: "0.5rem" }}>{step.title}</h3>
-                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.8rem", lineHeight: 1.6, marginBottom: "0.75rem" }}>{step.desc}</p>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(200,161,90,0.1)", borderRadius: 100, padding: "0.25rem 0.6rem" }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#C8A15A" }} />
-                    <span style={{ fontSize: "0.7rem", color: "#C8A15A", fontWeight: 600 }}>{step.duration}</span>
+                <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                  <div style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.08em", marginBottom: "0.4rem" }}>{step.num}</div>
+                  <h3 style={{ color: "var(--text-primary)", fontSize: "1.1rem", fontWeight: 700, letterSpacing: "-0.01em", marginBottom: "0.6rem" }}>{step.title}</h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: 1.6, marginBottom: "1.25rem", flex: 1 }}>{step.desc}</p>
+                  
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "color-mix(in srgb, var(--primary) 10%, transparent)", borderRadius: 100, padding: "0.3rem 0.65rem", width: "fit-content", transition: "background-color 0.3s" }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--accent)" }} />
+                    <span style={{ fontSize: "0.7rem", color: "var(--text-primary)", fontWeight: 700, transition: "color 0.3s" }}>{step.duration}</span>
                   </div>
                 </div>
               </div>
@@ -130,9 +145,11 @@ export function Process() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .process-grid { grid-template-columns: 1fr 1fr !important; }
-          .process-line { display: none; }
+        @media (max-width: 1100px) {
+          .process-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+          .process-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 560px) {
           .process-grid { grid-template-columns: 1fr !important; }
