@@ -114,13 +114,20 @@ export function About() {
                   </div>
 
                   {/* Back Side */}
-                  <div className="flip-card-back" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "0.75rem", textAlign: "left", padding: "1rem" }}>
+                  <div className="flip-card-back" style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "0.75rem", textAlign: "left", padding: "1rem", overflow: "hidden" }}>
                     <img
                       src={member.fullBody}
                       alt={member.name}
-                      style={{ height: 270, width: 150, objectFit: "contain", flexShrink: 0 }}
+                      style={{ 
+                        height: 280, 
+                        width: member.name === "Vishal" ? 180 : 150, 
+                        objectFit: "contain", 
+                        flexShrink: 0,
+                        alignSelf: "flex-end",
+                        marginBottom: "-1.05rem"
+                      }}
                     />
-                    <div>
+                    <div style={{ alignSelf: "center", flex: 1, paddingBottom: "0.5rem" }}>
                       <div style={{ fontSize: "0.75rem", color: "#C8A15A", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.35rem" }}>{member.role}</div>
                       <p style={{ fontSize: "0.85rem", color: "rgba(245,244,238,0.9)", lineHeight: 1.4, fontWeight: 500, fontStyle: "italic" }}>"{member.dialogue}"</p>
                     </div>
