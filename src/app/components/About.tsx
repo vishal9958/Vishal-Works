@@ -120,7 +120,7 @@ export function About() {
                       alt={member.name}
                       style={{ 
                         height: 280, 
-                        width: member.name === "Vishal" ? 180 : 150, 
+                        width: 180, 
                         objectFit: "contain", 
                         flexShrink: 0,
                         alignSelf: "flex-end",
