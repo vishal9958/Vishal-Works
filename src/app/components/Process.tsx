@@ -706,16 +706,25 @@ export function Process() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 1200px) {
-          .process-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
+          .process-section { height: auto !important; max-height: none !important; padding: 4rem 1.25rem 3rem !important; }
           .process-cards-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 1.2rem !important; }
           .card-connector-arrow { display: none !important; }
           .timeline-arc-wrapper { display: none !important; }
           .process-left-annotation, .process-right-annotation { display: none !important; }
           .process-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1.2rem !important; }
         }
-        @media (max-width: 768px) {
-          .process-cards-grid { grid-template-columns: 1fr !important; }
+        @media (max-width: 860px) {
+          .process-cards-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+          .process-header { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
+          .process-top-right { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
+          .process-top-annotation { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .process-section { padding: 3.5rem 0.85rem 2.5rem !important; }
+          .process-flow-pill { width: 100% !important; justify-content: space-between !important; padding: 0.4rem 0.65rem !important; }
           .process-value-props { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+          .process-ctas { width: 100% !important; }
+          .process-ctas a { width: 100% !important; justify-content: center !important; }
         }
       `}</style>
     </section>

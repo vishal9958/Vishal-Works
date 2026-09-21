@@ -121,6 +121,7 @@ export function Contact() {
       </div>
 
       <div
+        className="contact-container"
         style={{
           maxWidth: 1400,
           margin: "0 auto",
@@ -192,7 +193,7 @@ export function Contact() {
               </div>
 
               {/* 2 Big Primary Action Cards */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.95rem", marginBottom: "0.85rem" }}>
+              <div className="contact-action-cards-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.95rem", marginBottom: "0.85rem" }}>
                 {/* Book a Free Call */}
                 <a
                   href={CONTACT_CONFIG.calendlyUrl}
@@ -261,7 +262,7 @@ export function Contact() {
               </div>
 
               {/* Contact Info (3 columns) */}
-              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.2fr 1.4fr", gap: "0.85rem" }}>
+              <div className="contact-info-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1.2fr 1.4fr", gap: "0.85rem" }}>
                 {/* Email */}
                 <a
                   href="mailto:vk6051950@gmail.com"
@@ -447,7 +448,7 @@ export function Contact() {
 
                   <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
                     {/* Row 1: Name & Email */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                    <div className="contact-name-email-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
                       <div>
                         <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", marginBottom: "0.25rem" }} className="input-field-label">
                           Your Name *
@@ -562,7 +563,7 @@ export function Contact() {
                     </div>
 
                     {/* Row 4: 4 Quick Tags / Actions */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.55rem", margin: "0.2rem 0" }}>
+                    <div className="contact-quick-pills-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.55rem", margin: "0.2rem 0" }}>
                       {[
                         { id: "attach", icon: "📎", title: "Attach Files", sub: "( Optional )" },
                         { id: "idea", icon: "💡", title: "IDEA", sub: "Share your vision" },
@@ -845,11 +846,79 @@ export function Contact() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 960px) {
-          .contact-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
-          .contact-main-grid { grid-template-columns: 1fr !important; gap: 2.2rem !important; }
-          .contact-desk-preview { height: 180px !important; }
-          .contact-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
-          .contact-stats-row { flex-wrap: wrap !important; gap: 1.2rem !important; }
+          .contact-section {
+            height: auto !important;
+            max-height: none !important;
+            min-height: auto !important;
+            padding: 3.5rem 0 2rem 0 !important;
+          }
+          .contact-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.2rem !important;
+          }
+          .contact-desk-preview {
+            height: 180px !important;
+          }
+          .contact-bottom-bar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1.2rem !important;
+            margin-top: 1.5rem !important;
+          }
+          .contact-stats-row {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.2rem !important;
+            width: 100% !important;
+          }
+          .contact-cursive-top {
+            display: none !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .contact-section {
+            padding: 2.8rem 0 1.8rem 0 !important;
+          }
+          .contact-container {
+            padding: 0 1.25rem !important;
+          }
+          .contact-action-cards-grid {
+            grid-template-columns: 1fr !important;
+            gap: 0.75rem !important;
+          }
+          .contact-info-grid {
+            grid-template-columns: 1fr !important;
+            gap: 0.75rem !important;
+          }
+          .contact-name-email-row {
+            grid-template-columns: 1fr !important;
+            gap: 0.65rem !important;
+          }
+          .contact-quick-pills-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.45rem !important;
+          }
+          .contact-glass-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 16px !important;
+          }
+          .contact-bottom-quote {
+            display: none !important;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .contact-container {
+            padding: 0 1rem !important;
+          }
+          .contact-stats-row {
+            grid-template-columns: 1fr !important;
+            gap: 0.85rem !important;
+          }
+          .contact-desk-preview {
+            height: 150px !important;
+          }
         }
       `}</style>
     </section>

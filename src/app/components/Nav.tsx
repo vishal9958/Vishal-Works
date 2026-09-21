@@ -39,7 +39,7 @@ export function Nav() {
     if (element) {
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
+      const elementPosition = elementRect - bodyRect - 75;
 
       window.scrollTo({
         top: elementPosition,
@@ -153,59 +153,98 @@ export function Nav() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, display: "none" }}
+            style={{ 
+              background: "none", 
+              border: "none", 
+              cursor: "pointer", 
+              padding: "0.5rem", 
+              display: "none",
+              zIndex: 110 
+            }}
             className="show-mobile"
             aria-label="Toggle menu"
           >
-            <div style={{ width: 24, height: 2, background: "var(--text-primary)", marginBottom: 5, transition: "transform 0.2s", transform: menuOpen ? "rotate(45deg) translate(4px, 4px)" : "none" }} />
-            <div style={{ width: 24, height: 2, background: "var(--text-primary)", marginBottom: 5, opacity: menuOpen ? 0 : 1, transition: "opacity 0.2s" }} />
-            <div style={{ width: 24, height: 2, background: "var(--text-primary)", transition: "transform 0.2s", transform: menuOpen ? "rotate(-45deg) translate(4px, -4px)" : "none" }} />
+            <div style={{ width: 22, height: 2, background: "var(--text-primary)", marginBottom: 5, borderRadius: 2, transition: "transform 0.25s ease, background-color 0.25s ease", transform: menuOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+            <div style={{ width: 22, height: 2, background: "var(--text-primary)", marginBottom: 5, borderRadius: 2, opacity: menuOpen ? 0 : 1, transition: "opacity 0.2s ease" }} />
+            <div style={{ width: 22, height: 2, background: "var(--text-primary)", borderRadius: 2, transition: "transform 0.25s ease, background-color 0.25s ease", transform: menuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
           </button>
         </nav>
 
-        {/* Mobile menu */}
+        {/* Mobile menu dropdown */}
         {menuOpen && (
-          <div style={{
-            background: "var(--bg-secondary)", borderTop: "1px solid var(--border)",
-            padding: "1.5rem 2rem 2rem", display: "flex", flexDirection: "column", gap: "1.25rem",
-            fontFamily: "'Manrope', sans-serif",
-            backdropFilter: "var(--glass-blur)",
-          }}>
+          <div 
+            className="mobile-menu-drawer"
+            style={{
+              background: isDark ? "rgba(4, 15, 10, 0.95)" : "rgba(255, 255, 255, 0.96)",
+              borderTop: "1px solid var(--border)",
+              borderBottom: "1px solid var(--border)",
+              padding: "1.25rem 1.5rem 1.75rem", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: "0.85rem",
+              fontFamily: "'Plus Jakarta Sans', 'Manrope', sans-serif",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+            }}
+          >
             {links.map((l) => (
               <a 
                 key={l} 
                 href={`#${l.toLowerCase()}`} 
                 onClick={(e) => { setMenuOpen(false); handleScroll(e, l.toLowerCase()); }}
-                style={{ color: "var(--text-primary)", textDecoration: "none", fontSize: "1.05rem", fontWeight: 500 }}
+                style={{ 
+                  color: "var(--text-primary)", 
+                  textDecoration: "none", 
+                  fontSize: "1rem", 
+                  fontWeight: 600,
+                  padding: "0.45rem 0.5rem",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}
               >
-                {l}
+                <span>{l}</span>
+                <span style={{ fontSize: "0.75rem", opacity: 0.4 }}>→</span>
               </a>
             ))}
 
             <a 
               href="#contact" 
               onClick={(e) => { setMenuOpen(false); handleScroll(e, "contact"); }}
-              style={{ background: "var(--primary)", color: "var(--primary-foreground)", padding: "0.75rem 1.5rem", borderRadius: 6, textDecoration: "none", fontSize: "0.9rem", fontWeight: 600, textAlign: "center" }}
+              style={{ 
+                background: "#E5A93C", 
+                color: "#020704", 
+                padding: "0.75rem 1.5rem", 
+                borderRadius: "10px", 
+                textDecoration: "none", 
+                fontSize: "0.92rem", 
+                fontWeight: 800, 
+                textAlign: "center",
+                marginTop: "0.5rem",
+                boxShadow: "0 6px 20px rgba(229, 169, 60, 0.35)"
+              }}
             >
-              Start a Project
+              Start a Project →
             </a>
           </div>
         )}
 
         <style>{`
-          @media (max-width: 768px) {
+          @media (max-width: 820px) {
             .hidden-mobile { display: none !important; }
-            .show-mobile { display: block !important; }
+            .show-mobile { display: flex !important; flex-direction: column !important; justify-content: center !important; }
           }
-          @media (min-width: 769px) {
+          @media (min-width: 821px) {
             .show-mobile { display: none !important; }
           }
           @media (max-width: 600px) {
             .floating-theme-btn {
               bottom: 1.25rem !important;
               right: 1.25rem !important;
-              width: 46px !important;
-              height: 46px !important;
+              width: 44px !important;
+              height: 44px !important;
             }
           }
         `}</style>

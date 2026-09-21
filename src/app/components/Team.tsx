@@ -285,6 +285,7 @@ export function Team() {
                   >
                     {/* Left: Avatar Photo with Cursive tag */}
                     <div
+                      className="member-avatar-box"
                       style={{
                         position: "relative",
                         width: "185px",
@@ -454,6 +455,7 @@ export function Team() {
                   >
                     {/* Left: Full Body Artwork */}
                     <div
+                      className="member-body-box"
                       style={{
                         position: "relative",
                         width: "180px",
@@ -752,15 +754,25 @@ export function Team() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 900px) {
-          .team-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
-          .team-cards-grid { grid-template-columns: 1fr !important; max-width: 420px !important; gap: 1.2rem !important; }
+          .team-section { height: auto !important; max-height: none !important; padding: 4rem 1.25rem 3rem !important; }
+          .team-cards-grid { grid-template-columns: 1fr !important; max-width: 540px !important; gap: 1.5rem !important; }
           .team-top-right { flex-direction: column !important; align-items: flex-start !important; }
           .team-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
         }
         @media (max-width: 600px) {
-          .team-header { flex-direction: column !important; align-items: flex-start !important; }
-          .team-flip-card { height: auto !important; min-height: 230px !important; }
-          .team-value-props { flex-direction: column !important; align-items: flex-start !important; }
+          .team-section { padding: 3.5rem 0.85rem 2.5rem !important; }
+          .team-header { flex-direction: column !important; align-items: flex-start !important; gap: 0.85rem !important; }
+          .team-top-annotation { display: none !important; }
+          .team-flip-card { height: 320px !important; }
+          .member-avatar-box { width: 130px !important; }
+          .member-body-box { width: 130px !important; }
+          .team-value-props { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+        }
+        @media (max-width: 420px) {
+          .team-flip-card { height: 340px !important; }
+          .member-avatar-box { width: 110px !important; }
+          .member-body-box { width: 110px !important; }
+          .member-name { font-size: 1.15rem !important; }
         }
       `}</style>
     </section>

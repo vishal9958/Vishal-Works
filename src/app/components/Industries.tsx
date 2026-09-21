@@ -983,6 +983,7 @@ export function Industries() {
 
             {/* 2. 3D TILTED DEVICES CONTAINER */}
             <div
+              className="industries-devices-container"
               style={{
                 position: "absolute",
                 left: "350px",
@@ -998,6 +999,7 @@ export function Industries() {
             >
               {/* BACK DESKTOP BROWSER WINDOW */}
               <div
+                className="industries-desktop-wrapper"
                 style={{
                   position: "absolute",
                   left: "85px",
@@ -1329,12 +1331,153 @@ export function Industries() {
 
         /* ================= RESPONSIVE DESIGN ================= */
         @media (max-width: 1180px) {
-          .industries-section { height: auto !important; max-height: none !important; padding: 3rem 0 !important; }
-          .industries-main-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .industries-tabs-container { flex-direction: row !important; overflow-x: auto !important; padding-bottom: 0.5rem; }
-          .industries-tabs-container button { white-space: nowrap !important; flex-shrink: 0 !important; }
-          .industry-side-annotation { display: none !important; }
-          .industries-showcase-stage { height: auto !important; min-height: 500px !important; }
+          .industries-section {
+            height: auto !important;
+            max-height: none !important;
+            min-height: auto !important;
+            padding: 5rem 1.5rem 3rem !important;
+          }
+          .industries-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.8rem !important;
+          }
+          .industries-tabs-container {
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            padding-bottom: 0.6rem !important;
+            width: 100% !important;
+            scrollbar-width: none !important;
+          }
+          .industries-tabs-container::-webkit-scrollbar {
+            display: none !important;
+          }
+          .industries-tabs-container button {
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+          }
+          .industry-side-annotation, .industry-sky-annotation {
+            display: none !important;
+          }
+          .industries-showcase-stage {
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: auto !important;
+            gap: 1.5rem !important;
+          }
+          .industry-glass-card {
+            position: relative !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            left: auto !important;
+            top: auto !important;
+            bottom: auto !important;
+            height: auto !important;
+          }
+          .industry-glass-card > div {
+            max-width: 100% !important;
+          }
+          .industry-stats-grid {
+            max-width: 100% !important;
+          }
+          .industries-devices-container {
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            bottom: auto !important;
+            width: 100% !important;
+            height: 440px !important;
+            min-height: 440px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-top: 1rem !important;
+          }
+          .industries-desktop-wrapper {
+            left: 40px !important;
+            right: 0 !important;
+          }
+          .industry-phone-frame {
+            left: 0 !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .industries-section {
+            padding: 4.8rem 1rem 2.5rem !important;
+          }
+          .industry-glass-card {
+            padding: 1.35rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
+          .industry-card-title {
+            font-size: 1.55rem !important;
+          }
+          .industry-stats-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.4rem !important;
+          }
+          .industry-stat-pill {
+            padding: 0.45rem 0.4rem !important;
+          }
+          .industry-stat-val {
+            font-size: 0.85rem !important;
+          }
+          .industry-stat-lbl {
+            font-size: 0.55rem !important;
+          }
+          .industries-devices-container {
+            height: auto !important;
+            min-height: auto !important;
+            perspective: none !important;
+            display: flex !important;
+            justify-content: center !important;
+            margin-top: 0.5rem !important;
+          }
+          .industries-desktop-wrapper {
+            display: none !important;
+          }
+          .industry-phone-frame {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: 280px !important;
+            height: 400px !important;
+            margin: 0 auto !important;
+          }
+          .industry-bottom-tagline {
+            display: none !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .industries-section {
+            padding: 4.2rem 0.85rem 2rem !important;
+          }
+          .industry-card-title {
+            font-size: 1.4rem !important;
+          }
+          .industry-stat-pill {
+            flex-direction: column !important;
+            text-align: center !important;
+            align-items: center !important;
+            padding: 0.4rem 0.25rem !important;
+          }
+          .industry-stat-pill > span {
+            font-size: 0.95rem !important;
+          }
+          .industry-stat-pill > div {
+            align-items: center !important;
+          }
+          .industry-phone-frame {
+            max-width: 260px !important;
+            height: 380px !important;
+          }
         }
       `}</style>
     </section>

@@ -454,15 +454,17 @@ export function Services() {
         }
 
         @media (max-width: 1200px) {
-          .services-section { height: auto !important; max-height: none !important; padding: 3.5rem 1.5rem !important; }
-          .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .services-section { height: auto !important; max-height: none !important; padding: 4rem 1.5rem !important; }
+          .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; }
         }
         @media (max-width: 900px) {
           .hover-hint { display: none !important; }
         }
         @media (max-width: 768px) {
-          .services-grid { grid-template-columns: 1fr !important; }
-          .service-flip-card { height: 230px !important; }
+          .services-section { padding: 3.5rem 1rem 2.5rem !important; }
+          .services-header { flex-direction: column !important; align-items: flex-start !important; gap: 0.8rem !important; }
+          .services-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .service-flip-card { height: 215px !important; }
         }
       `}</style>
     </section>

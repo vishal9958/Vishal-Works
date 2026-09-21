@@ -1249,15 +1249,105 @@ export function FeaturedWork() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 1200px) {
-          .featured-work-section { height: auto !important; max-height: none !important; padding: 3rem 0 !important; }
-          .featured-main-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .featured-details-grid { grid-template-columns: 1fr !important; }
-          .featured-devices-wrapper { min-height: 380px !important; margin-top: 1rem; }
+          .featured-work-section {
+            height: auto !important;
+            max-height: none !important;
+            min-height: auto !important;
+            padding: 5rem 1.5rem 3rem !important;
+          }
+          .featured-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+          .featured-details-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .featured-devices-wrapper {
+            min-height: 380px !important;
+            height: 380px !important;
+            margin-top: 1.2rem !important;
+          }
         }
         @media (max-width: 768px) {
-          .featured-header { flex-direction: column !important; align-items: flex-start !important; }
-          .featured-tabs-row { overflow-x: auto !important; width: 100% !important; padding-bottom: 0.5rem; }
-          .featured-stats-strip { grid-template-columns: 1fr !important; }
+          .featured-work-section {
+            padding: 4.8rem 1rem 2.5rem !important;
+          }
+          .featured-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.85rem !important;
+          }
+          .featured-top-annotation {
+            display: none !important;
+          }
+          .featured-tabs-row { 
+            overflow-x: auto !important; 
+            width: 100% !important; 
+            padding-bottom: 0.6rem !important; 
+            -webkit-overflow-scrolling: touch !important; 
+            scrollbar-width: none !important; 
+          }
+          .featured-tabs-row::-webkit-scrollbar {
+            display: none !important;
+          }
+          .featured-stats-strip {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.4rem !important;
+          }
+          .featured-devices-wrapper {
+            position: relative !important;
+            min-height: 280px !important;
+            height: 280px !important;
+            width: 100% !important;
+            margin-top: 1rem !important;
+            perspective: none !important;
+            overflow: hidden !important;
+          }
+          .featured-desktop-device {
+            position: absolute !important;
+            left: 0 !important;
+            right: 35px !important;
+            top: 10px !important;
+            bottom: 10px !important;
+            width: auto !important;
+            height: auto !important;
+            transform: none !important;
+          }
+          .featured-phone-device {
+            position: absolute !important;
+            right: 5px !important;
+            bottom: 5px !important;
+            left: auto !important;
+            top: auto !important;
+            width: 125px !important;
+            height: 230px !important;
+            transform: none !important;
+          }
+          .featured-bottom-annotation {
+            display: none !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .featured-work-section {
+            padding: 4.2rem 0.85rem 2rem !important;
+          }
+          .featured-stats-strip {
+            grid-template-columns: 1fr !important;
+            gap: 0.45rem !important;
+          }
+          .featured-devices-wrapper {
+            min-height: 240px !important;
+            height: 240px !important;
+          }
+          .featured-desktop-device {
+            right: 25px !important;
+          }
+          .featured-phone-device {
+            width: 105px !important;
+            height: 200px !important;
+            right: 0px !important;
+            bottom: 0px !important;
+          }
         }
       `}</style>
     </section>

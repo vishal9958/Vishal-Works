@@ -623,13 +623,15 @@ export function About() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 1180px) {
-          .about-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
-          .about-main-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          .about-section { height: auto !important; max-height: none !important; padding: 4rem 1.25rem 3rem !important; }
+          .about-main-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
           .about-top-annotation, .about-bottom-annotation { display: none !important; }
+          .about-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
         }
-        @media (max-width: 768px) {
-          .about-pillars-grid { grid-template-columns: 1fr !important; }
-          .about-stats-strip { grid-template-columns: repeat(2, 1fr) !important; }
+        @media (max-width: 640px) {
+          .about-section { padding: 3.5rem 0.85rem 2.5rem !important; }
+          .about-pillars-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .about-stats-strip { grid-template-columns: repeat(2, 1fr) !important; gap: 0.85rem !important; padding: 1rem !important; }
         }
       `}</style>
     </section>

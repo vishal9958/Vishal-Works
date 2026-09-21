@@ -55,6 +55,7 @@ export function Footer() {
       </div>
 
       <div
+        className="footer-container"
         style={{
           maxWidth: 1400,
           margin: "0 auto",
@@ -178,8 +179,8 @@ export function Footer() {
           </div>
 
           {/* Right Action Buttons & Value Props */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.85rem" }}>
-            <div style={{ display: "flex", gap: "0.65rem", alignItems: "center" }}>
+          <div className="footer-cta-actions" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.85rem" }}>
+            <div style={{ display: "flex", gap: "0.65rem", alignItems: "center", flexWrap: "wrap" }}>
               <a
                 href="#contact"
                 style={{
@@ -225,7 +226,7 @@ export function Footer() {
             </div>
 
             {/* 3 Value Props */}
-            <div style={{ display: "flex", gap: "0.95rem", alignItems: "center" }}>
+            <div className="footer-cta-props" style={{ display: "flex", gap: "0.95rem", alignItems: "center" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
                 <div style={{ width: 22, height: 22, borderRadius: "50%", background: "rgba(229, 169, 60, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#E5A93C", fontSize: "0.7rem" }}>⚡</div>
                 <div style={{ fontSize: "0.62rem" }}>
@@ -266,7 +267,7 @@ export function Footer() {
           className="footer-nav-grid"
         >
           {/* Column 1: Brand */}
-          <div>
+          <div className="footer-brand-col">
             {/* Logo */}
             <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem" }}>
               <div
@@ -322,7 +323,7 @@ export function Footer() {
             </p>
 
             {/* Social Icons (5 Squares) */}
-            <div style={{ display: "flex", gap: "0.45rem", alignItems: "center", marginBottom: "0.85rem" }}>
+            <div style={{ display: "flex", gap: "0.45rem", alignItems: "center", marginBottom: "0.85rem", flexWrap: "wrap" }}>
               {[
                 { label: "𝕏", url: "https://x.com" },
                 { label: "📷", url: "https://instagram.com" },
@@ -685,17 +686,65 @@ export function Footer() {
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 1024px) {
-          .footer-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
-          .footer-cta-card { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
-          .footer-cta-cursive { display: none !important; }
-          .footer-nav-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 2rem !important; }
-          .footer-side-cursive { display: none !important; }
-          .footer-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
-          .footer-center-tagline { display: none !important; }
+          .footer-section {
+            height: auto !important;
+            max-height: none !important;
+            padding: 3.5rem 0 1.5rem 0 !important;
+          }
+          .footer-cta-card {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
+          }
+          .footer-cta-cursive {
+            display: none !important;
+          }
+          .footer-cta-actions {
+            align-items: flex-start !important;
+            width: 100% !important;
+          }
+          .footer-nav-grid {
+            grid-template-columns: 1.4fr 1fr 1fr !important;
+            gap: 2rem !important;
+          }
+          .footer-side-cursive {
+            display: none !important;
+          }
+          .footer-bottom-bar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+          }
+          .footer-center-tagline {
+            display: none !important;
+          }
         }
-        @media (max-width: 640px) {
-          .footer-nav-grid { grid-template-columns: 1fr 1fr !important; }
-          .footer-policy-links { flex-wrap: wrap !important; }
+
+        @media (max-width: 768px) {
+          .footer-nav-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.8rem 1.2rem !important;
+          }
+          .footer-brand-col {
+            grid-column: span 2 !important;
+          }
+          .footer-cta-props {
+            flex-wrap: wrap !important;
+            gap: 0.85rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .footer-container {
+            padding: 0 1.2rem !important;
+          }
+          .footer-cta-card {
+            padding: 1.3rem 1rem !important;
+            border-radius: 16px !important;
+          }
+          .footer-policy-links {
+            flex-direction: column !important;
+            gap: 0.4rem !important;
+          }
         }
       `}</style>
     </footer>

@@ -375,17 +375,21 @@ export function Hero() {
 
         /* Responsive stacking for smaller screens */
         @media (max-width: 1024px) {
-           .hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; padding-top: 4rem !important; padding-bottom: 4rem !important; }
-           .mockup-scaler { transform: scale(0.9); transform-origin: center; }
+           .hero-section { height: auto !important; min-height: 100vh !important; padding: 5.5rem 1.5rem 3.5rem !important; }
+           .hero-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; padding: 0 !important; }
+           .mockup-scaler { transform: scale(0.85); transform-origin: center; }
            .mockup-inner { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateY(0) translateX(0) !important; }
            .arrow-text { display: none !important; }
+           .right-column-container { display: flex !important; justify-content: center !important; }
         }
-        @media (max-width: 600px) {
-           .hero-left h1 { font-size: 2.2rem !important; }
-           .stats-grid { grid-template-columns: 1fr !important; }
-           .mockup-scaler { transform: scale(1); }
-           .floating-card-1, .floating-card-2 { display: none !important; }
-           .right-column-container { display: none !important; }
+        @media (max-width: 640px) {
+           .hero-section { padding: 4.8rem 1rem 2.5rem !important; }
+           .hero-left h1 { font-size: clamp(1.95rem, 8vw, 2.4rem) !important; }
+           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.85rem !important; }
+           .mockup-scaler { transform: scale(0.68) !important; transform-origin: top center; margin-bottom: -70px; }
+           .floating-card-1 { left: -10px !important; top: -15px !important; transform: scale(0.8) !important; }
+           .floating-card-2 { right: -10px !important; bottom: 10px !important; transform: scale(0.8) !important; }
+           .arrow-text { display: none !important; }
         }
       `}</style>
     </section>
