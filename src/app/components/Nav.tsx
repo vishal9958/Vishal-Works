@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import logoImg from "@/assets/logo.png";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,20 +31,18 @@ export function Nav() {
     }
   };
 
-  const links = ["Services", "Work", "Process", "About", "Contact"];
+  const links = ["Services", "Work", "Process", "About", "Team", "Contact"];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     const element = document.getElementById(targetId);
     if (element) {
-      const offset = 72;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: elementPosition,
         behavior: "smooth"
       });
     }
@@ -69,14 +68,56 @@ export function Nav() {
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}
+            style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none" }}
           >
-            <div style={{ width: 32, height: 32, background: "var(--primary)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M3 4L9 14L15 4" stroke={isDark ? "#091613" : "#C8A15A"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <div style={{ 
+              width: 36, 
+              height: 36, 
+              borderRadius: 8, 
+              overflow: "hidden", 
+              background: "#06130D",
+              border: "1px solid rgba(229, 169, 60, 0.35)",
+              boxShadow: "0 0 16px rgba(229, 169, 60, 0.2)",
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+              flexShrink: 0
+            }}>
+              <img 
+                src={logoImg} 
+                alt="SIDEONE Logo" 
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+              />
             </div>
-            <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>Vishal Works</span>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div style={{ 
+                display: "flex", 
+                alignItems: "center", 
+                letterSpacing: "0.14em", 
+                fontSize: "1.08rem", 
+                fontWeight: 900, 
+                fontFamily: "'Plus Jakarta Sans', 'Manrope', sans-serif",
+                lineHeight: 1.1
+              }}>
+                <span style={{ color: "var(--text-primary)" }}>SIDE</span>
+                <span style={{ 
+                  background: "linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #B58525 100%)", 
+                  WebkitBackgroundClip: "text", 
+                  WebkitTextFillColor: "transparent",
+                  marginLeft: "1px"
+                }}>ONE</span>
+              </div>
+              <span style={{ 
+                fontSize: "0.48rem", 
+                letterSpacing: "0.22em", 
+                color: "var(--text-secondary)", 
+                fontWeight: 700, 
+                textTransform: "uppercase", 
+                marginTop: "1px" 
+              }}>
+                TWO MINDS · ONE DIRECTION
+              </span>
+            </div>
           </a>
 
           {/* Desktop nav */}

@@ -1,23 +1,41 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { ArrowRight } from "lucide-react";
+import contactDeskImg from "@/assets/contact_desk.jpg";
 
 // --- CONTACT CONFIGURATION ---
-// Change these values to configure your contact links and form submissions.
 const CONTACT_CONFIG = {
-  whatsappNumber: "919318395641", // Put your WhatsApp number with country code (e.g. 91 for India, no spaces or '+')
-  whatsappMessage: "Hi Vishal, I want to discuss a website project for my business.", // Pre-filled text message
-  calendlyUrl: "https://cal.com/vishal-biswas-iynwpk/project-discovery-call", // Your Calendly or Cal.com scheduling link
-  web3formsAccessKey: "b1bc7840-f749-4d6f-95a8-97626662a660", // Get a free key from https://web3forms.com to make the form work
+  whatsappNumber: "919318395641",
+  whatsappMessage: "Hi Vishal, I want to discuss a website project for my business.",
+  calendlyUrl: "https://cal.com/vishal-biswas-iynwpk/project-discovery-call",
+  web3formsAccessKey: "b1bc7840-f749-4d6f-95a8-97626662a660",
 };
 
 export function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", business: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    business: "Cafe & Bakery",
+    message: "",
+    selectedPills: [] as string[]
+  });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const togglePill = (pillName: string) => {
+    setForm((prev) => {
+      const exists = prev.selectedPills.includes(pillName);
+      return {
+        ...prev,
+        selectedPills: exists
+          ? prev.selectedPills.filter((p) => p !== pillName)
+          : [...prev.selectedPills, pillName]
+      };
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // If user hasn't set up the API key yet, simulate a success submission
+
     if (CONTACT_CONFIG.web3formsAccessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
       setSent(true);
       return;
@@ -36,6 +54,7 @@ export function Contact() {
           name: form.name,
           email: form.email,
           business: form.business,
+          tags: form.selectedPills.join(", "),
           message: form.message,
           subject: `New Project Inquiry from ${form.name}`,
         }),
@@ -44,7 +63,7 @@ export function Contact() {
       if (result.success) {
         setSent(true);
       } else {
-        alert("Something went wrong while sending the form. Please try WhatsApp or email instead.");
+        alert("Something went wrong while sending the form. Please reach out via WhatsApp or Email.");
       }
     } catch (error) {
       console.error(error);
@@ -55,201 +74,782 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" style={{ position: "relative", overflow: "hidden", background: "var(--bg-primary)", padding: "7rem 2rem", fontFamily: "'Manrope', sans-serif", transition: "background-color 0.3s ease" }}>
-      {/* Background Glow Bubbles for Glassmorphism */}
+    <section
+      id="contact"
+      className="contact-section"
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        padding: "clamp(1.4rem, 2.6vh, 2.2rem) 0 clamp(0.6rem, 1.2vh, 1rem) 0",
+        fontFamily: "'Plus Jakarta Sans', 'Manrope', sans-serif",
+        minHeight: "100vh",
+        maxHeight: "100vh",
+        height: "100vh",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        transition: "background-color 0.3s ease, color 0.3s ease"
+      }}
+    >
+      {/* Ambient Background Glow Lights */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
-        <div style={{
-          position: "absolute", top: "30%", right: "-5%", width: 350, height: 350,
-          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 12%, transparent)",
-          filter: "blur(60px)",
-        }} />
-        <div style={{
-          position: "absolute", bottom: "20%", left: "-5%", width: 300, height: 300,
-          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 15%, transparent)",
-          filter: "blur(50px)",
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            top: "5%",
+            left: "5%",
+            width: "50vw",
+            height: "50vw",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(110, 231, 183, 0.07) 0%, transparent 70%)",
+            filter: "blur(80px)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "15%",
+            right: "5%",
+            width: "55vw",
+            height: "55vw",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(229, 169, 60, 0.09) 0%, transparent 70%)",
+            filter: "blur(90px)",
+          }}
+        />
       </div>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6rem", alignItems: "start" }} className="contact-grid">
-          {/* Left */}
-          <div className="reveal">
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
-              <div style={{ width: 24, height: 1.5, background: "var(--accent)" }} />
-              <span style={{ color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Get in Touch</span>
+      <div
+        style={{
+          maxWidth: 1400,
+          margin: "0 auto",
+          padding: "0 2.5rem",
+          position: "relative",
+          zIndex: 2,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between"
+        }}
+      >
+        {/* ================= MAIN 2-COLUMN GRID (FILLS SECTION) ================= */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.05fr 1fr",
+            gap: "clamp(1.5rem, 3vw, 3.5rem)",
+            alignItems: "center",
+            width: "100%",
+            flex: 1,
+            minHeight: 0
+          }}
+          className="contact-main-grid"
+        >
+          {/* ================= LEFT COLUMN ================= */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(0.75rem, 1.4vh, 1.1rem)",
+              justifyContent: "center",
+              height: "100%"
+            }}
+          >
+            {/* Header & Subtitle */}
+            <div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                <div style={{ width: 22, height: 2, background: "#E5A93C", borderRadius: 2 }} />
+                <span style={{ color: "#E5A93C", fontSize: "0.76rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                  GET IN TOUCH
+                </span>
+              </div>
+
+              <h2 className="contact-main-title" style={{ fontSize: "clamp(1.85rem, 2.6vw, 2.65rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.14, margin: "0 0 0.45rem 0" }}>
+                Let's Build Something<br />
+                <span style={{ color: "#E5A93C" }}>Great Together</span>
+              </h2>
+
+              <p className="contact-main-desc" style={{ fontSize: "0.86rem", lineHeight: 1.45, margin: "0 0 0.85rem 0", maxWidth: "530px" }}>
+                Whether you're a startup launching your first product or an established business ready for a digital upgrade — we'd love to hear from you.
+              </p>
+
+              {/* 3 Feature Badges */}
+              <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", marginBottom: "0.85rem" }}>
+                <div className="feature-item-pill" style={{ display: "flex", alignItems: "center", gap: "0.45rem", borderRadius: "100px", padding: "0.32rem 0.85rem", fontSize: "0.76rem", fontWeight: 700 }}>
+                  <span style={{ fontSize: "0.9rem" }}>📋</span>
+                  <span>Discuss Your Idea</span>
+                </div>
+                <div className="feature-item-pill" style={{ display: "flex", alignItems: "center", gap: "0.45rem", borderRadius: "100px", padding: "0.32rem 0.85rem", fontSize: "0.76rem", fontWeight: 700 }}>
+                  <span style={{ fontSize: "0.9rem" }}>👤</span>
+                  <span>Get Expert Guidance</span>
+                </div>
+                <div className="feature-item-pill" style={{ display: "flex", alignItems: "center", gap: "0.45rem", borderRadius: "100px", padding: "0.32rem 0.85rem", fontSize: "0.76rem", fontWeight: 700 }}>
+                  <span style={{ fontSize: "0.9rem" }}>✨</span>
+                  <span>Turn Ideas Into Reality</span>
+                </div>
+              </div>
+
+              {/* 2 Big Primary Action Cards */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.95rem", marginBottom: "0.85rem" }}>
+                {/* Book a Free Call */}
+                <a
+                  href={CONTACT_CONFIG.calendlyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="action-card-call"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0.8rem 1.05rem",
+                    borderRadius: "14px",
+                    textDecoration: "none",
+                    background: "rgba(229, 169, 60, 0.08)",
+                    border: "1.5px solid rgba(229, 169, 60, 0.45)",
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
+                    transition: "all 0.25s ease"
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                    <div style={{ width: 38, height: 38, borderRadius: "10px", background: "rgba(229, 169, 60, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#E5A93C", fontSize: "1.1rem" }}>
+                      📅
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: "0.88rem", color: "#ffffff" }} className="action-card-title">Book a Free Call</div>
+                      <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.65)", marginTop: "2px" }} className="action-card-sub">30-min strategy session</div>
+                    </div>
+                  </div>
+                  <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#E5A93C", display: "flex", alignItems: "center", justifyContent: "center", color: "#020704" }}>
+                    <ArrowRight size={15} strokeWidth={2.5} />
+                  </div>
+                </a>
+
+                {/* Chat on WhatsApp */}
+                <a
+                  href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="action-card-whatsapp"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0.8rem 1.05rem",
+                    borderRadius: "14px",
+                    textDecoration: "none",
+                    background: "rgba(37, 211, 102, 0.08)",
+                    border: "1.5px solid rgba(37, 211, 102, 0.45)",
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
+                    transition: "all 0.25s ease"
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                    <div style={{ width: 38, height: 38, borderRadius: "10px", background: "rgba(37, 211, 102, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#25D366", fontSize: "1.1rem" }}>
+                      💬
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: "0.88rem", color: "#ffffff" }} className="action-card-title">Chat on WhatsApp</div>
+                      <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.65)", marginTop: "2px" }} className="action-card-sub">Replies in minutes</div>
+                    </div>
+                  </div>
+                  <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff" }}>
+                    <ArrowRight size={15} strokeWidth={2.5} />
+                  </div>
+                </a>
+              </div>
+
+              {/* Contact Info (3 columns) */}
+              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.2fr 1.4fr", gap: "0.85rem" }}>
+                {/* Email */}
+                <a
+                  href="mailto:vk6051950@gmail.com"
+                  style={{ display: "flex", alignItems: "center", gap: "0.55rem", textDecoration: "none" }}
+                  className="contact-info-link"
+                >
+                  <div style={{ width: 30, height: 30, borderRadius: "8px", background: "rgba(229, 169, 60, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", color: "#E5A93C" }}>✉️</div>
+                  <div>
+                    <div style={{ fontSize: "0.62rem", fontWeight: 800, color: "#E5A93C", letterSpacing: "0.1em", textTransform: "uppercase" }}>EMAIL</div>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700 }} className="contact-detail-val">vk6051950@gmail.com</div>
+                  </div>
+                </a>
+
+                {/* Location */}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
+                  <div style={{ width: 30, height: 30, borderRadius: "8px", background: "rgba(110, 231, 183, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", color: "#6EE7B7" }}>📍</div>
+                  <div>
+                    <div style={{ fontSize: "0.62rem", fontWeight: 800, color: "#6EE7B7", letterSpacing: "0.1em", textTransform: "uppercase" }}>LOCATION</div>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700 }} className="contact-detail-val">Delhi NCR, India</div>
+                  </div>
+                </div>
+
+                {/* Availability */}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
+                  <div style={{ width: 30, height: 30, borderRadius: "8px", background: "rgba(229, 169, 60, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", color: "#E5A93C" }}>🕒</div>
+                  <div>
+                    <div style={{ fontSize: "0.62rem", fontWeight: 800, color: "#E5A93C", letterSpacing: "0.1em", textTransform: "uppercase" }}>AVAILABILITY</div>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700 }} className="contact-detail-val">Mon - Sun · 9 AM - 9 PM</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.75rem)", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "1.25rem" }}>
-              Let's Build Something<br />
-              <span style={{ color: "var(--primary)" }}>Great Together</span>
-            </h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "3rem", maxWidth: 420 }}>
-              Whether you're a startup launching your first product or an established business ready for a digital upgrade — we'd love to hear from you.
-            </p>
 
-            {/* CTA buttons */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "3rem" }}>
-              <a
-                href={CONTACT_CONFIG.calendlyUrl}
-                target="_blank"
-                rel="noreferrer"
+            {/* Bottom Desk Workspace Preview Artwork */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "clamp(130px, 17vh, 170px)",
+                borderRadius: "14px",
+                overflow: "hidden",
+                border: "1.5px solid rgba(255, 255, 255, 0.12)",
+                boxShadow: "0 12px 30px rgba(0,0,0,0.6)"
+              }}
+              className="contact-desk-preview"
+            >
+              <img
+                src={contactDeskImg}
+                alt="SIDEONE Studio Workspace"
                 style={{
-                  display: "flex", alignItems: "center", gap: "1rem",
-                  background: "var(--primary)", color: "var(--primary-foreground)",
-                  padding: "1rem 1.5rem", borderRadius: 12,
-                  textDecoration: "none", transition: "background 0.2s, filter 0.2s",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center 60%",
+                  display: "block"
                 }}
-                onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.15)")}
-                onMouseLeave={e => (e.currentTarget.style.filter = "none")}
-              >
-                <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.12)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                    <path d="M7 2V6M13 2V6M3 9H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Book a Free Call</div>
-                  <div style={{ fontSize: "0.75rem", opacity: 0.75 }}>30-minute strategy session</div>
-                </div>
-              </a>
+              />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(2,7,4,0.65) 0%, rgba(2,7,4,0.1) 50%, rgba(2,7,4,0.75) 100%)" }} />
 
-              <a
-                href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
-                target="_blank"
-                rel="noreferrer"
+              {/* Overlay Handwriting Text */}
+              <div
                 style={{
-                  display: "flex", alignItems: "center", gap: "1rem",
-                  background: "#25D366", color: "#fff",
-                  padding: "1rem 1.5rem", borderRadius: 12,
-                  textDecoration: "none", transition: "background 0.2s, filter 0.2s",
+                  position: "absolute",
+                  bottom: "0.65rem",
+                  right: "1.2rem",
+                  fontFamily: "'Caveat', cursive",
+                  fontSize: "1.2rem",
+                  color: "#ffffff",
+                  textShadow: "0 2px 12px rgba(0,0,0,0.95)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.45rem",
+                  lineHeight: 1.05,
+                  textAlign: "right"
                 }}
-                onMouseEnter={e => (e.currentTarget.style.filter = "brightness(1.15)")}
-                onMouseLeave={e => (e.currentTarget.style.filter = "none")}
               >
-                <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
-                    <path d="M10 2C5.58 2 2 5.58 2 10C2 11.48 2.4 12.86 3.1 14.04L2 18L6.08 16.91C7.22 17.57 8.56 17.95 10 17.95C14.42 17.95 18 14.37 18 9.95C18 5.57 14.42 2 10 2ZM13.5 12.5C13.3 12.9 12.4 13.3 12 13.3C11.6 13.3 10.3 12.5 9.5 11.7C8.5 10.7 7.8 9.5 7.8 9.1C7.8 8.7 8.1 8.2 8.3 8C8.5 7.8 8.8 7.8 9 7.8C9.1 7.8 9.3 7.8 9.4 8.2C9.6 8.6 9.9 9.5 9.9 9.6C10 9.7 10 9.9 9.9 10.1C9.8 10.2 9.7 10.4 9.6 10.5C9.5 10.6 9.3 10.8 9.4 11C9.6 11.2 10.3 12 11 12.5C11.8 13 12.2 13.1 12.4 13C12.6 12.9 12.8 12.6 13 12.4C13.2 12.2 13.3 12.2 13.5 12.3C13.7 12.4 14.3 12.7 14.5 12.8C14.7 12.9 14.8 13 14.8 13.1C14.8 13.3 14.6 13.8 13.5 12.5Z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>Chat on WhatsApp</div>
-                  <div style={{ fontSize: "0.75rem", opacity: 0.85 }}>Typically replies in minutes</div>
-                </div>
-              </a>
-            </div>
-
-            {/* Contact info */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              {[
-                ["Email", "vk6051950@gmail.com"],
-                ["Location", "Delhi NCR, India · Remote worldwide"],
-                ["Availability", "Available for new projects"],
-              ].map(([label, value]) => (
-                <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", letterSpacing: "0.06em", textTransform: "uppercase", width: 120, flexShrink: 0, transition: "color 0.3s" }}>{label}</span>
-                  <span style={{ fontSize: "0.875rem", color: "var(--text-primary)", transition: "color 0.3s" }}>{value}</span>
-                </div>
-              ))}
+                <span>Same<br />Vision<br />Bigger Things</span>
+                <svg width="26" height="26" viewBox="0 0 32 30" fill="none" style={{ transform: "rotate(20deg)" }}>
+                  <path d="M4 4 C 14 6, 24 14, 26 26 M 26 26 L 18 24 M 26 26 L 25 18" stroke="#6EE7B7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
           </div>
 
-          {/* Right — form */}
-          <div className="reveal reveal-delay-2" style={{ background: "var(--glass-card-on-white)", backdropFilter: "var(--glass-blur)", WebkitBackdropFilter: "var(--glass-blur)", border: "1px solid var(--glass-border)", borderRadius: 20, padding: "2.5rem", boxShadow: "var(--glass-shadow)", transition: "background-color 0.3s, border-color 0.3s, box-shadow 0.3s" }}>
-            {sent ? (
-              <div style={{ textAlign: "center", padding: "2rem" }}>
-                <div style={{ width: 64, height: 64, background: "var(--primary)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", transition: "background-color 0.3s" }}>
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <path d="M6 14L11 19L22 8" stroke="var(--primary-foreground)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+          {/* ================= RIGHT COLUMN: GRAND CONTACT FORM GLASS CARD ================= */}
+          <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", height: "100%" }}>
+            {/* Floating Top Cursive Annotation */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-1.5rem",
+                right: "1.2rem",
+                fontFamily: "'Caveat', cursive",
+                fontSize: "1.15rem",
+                color: "#6EE7B7",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                zIndex: 10
+              }}
+              className="contact-cursive-top"
+            >
+              <span>Let's create impact together.</span>
+              <svg width="22" height="22" viewBox="0 0 32 30" fill="none" style={{ transform: "rotate(15deg)" }}>
+                <path d="M4 4 C 14 6, 24 14, 26 26 M 26 26 L 18 24 M 26 26 L 25 18" stroke="#6EE7B7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* Main Glass Card */}
+            <div
+              className="contact-glass-card"
+              style={{
+                borderRadius: "20px",
+                padding: "clamp(1.2rem, 2.2vh, 1.65rem) clamp(1.3rem, 2vw, 1.75rem)",
+                backdropFilter: "blur(25px)",
+                border: "1.5px solid rgba(229, 169, 60, 0.45)",
+                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(229, 169, 60, 0.18)",
+                position: "relative"
+              }}
+            >
+              {sent ? (
+                <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                  <div style={{ width: 64, height: 64, background: "#E5A93C", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.2rem", color: "#020704", fontSize: "1.8rem", fontWeight: 800 }}>
+                    ✓
+                  </div>
+                  <h3 style={{ fontSize: "1.45rem", fontWeight: 800, margin: "0 0 0.5rem 0" }} className="contact-sent-title">
+                    Message Sent Successfully!
+                  </h3>
+                  <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", maxWidth: "380px", margin: "0 auto 1.8rem auto", lineHeight: 1.5 }} className="contact-sent-desc">
+                    Thank you for reaching out! We will review your project requirements and respond within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setSent(false)}
+                    style={{
+                      background: "rgba(229, 169, 60, 0.15)",
+                      border: "1px solid #E5A93C",
+                      color: "#E5A93C",
+                      padding: "0.55rem 1.5rem",
+                      borderRadius: "9px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      cursor: "pointer"
+                    }}
+                  >
+                    Send Another Message
+                  </button>
                 </div>
-                <h3 style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.75rem" }}>Message Sent!</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                  Thank you for reaching out. We'll get back to you within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>Start a Project</h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "2rem" }}>Tell us about your project and we'll get back to you within 24 hours.</p>
-
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                  {[
-                    { key: "name", label: "Your Name", placeholder: "Alex Johnson", type: "text" },
-                    { key: "email", label: "Email Address", placeholder: "alex@company.com", type: "email" },
-                    { key: "business", label: "Business Type", placeholder: "Cafe, Restaurant, Startup...", type: "text" },
-                  ].map((field) => (
-                    <div key={field.key}>
-                      <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
-                        {field.label}
-                      </label>
-                      <input
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        value={form[field.key as keyof typeof form]}
-                        onChange={e => setForm({ ...form, [field.key]: e.target.value })}
-                        required
-                        style={{
-                          width: "100%", background: "var(--bg-primary)", border: "1.5px solid var(--glass-border)",
-                          borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem",
-                          color: "var(--text-primary)", outline: "none", fontFamily: "'Manrope', sans-serif",
-                          transition: "border-color 0.2s, background-color 0.2s", boxSizing: "border-box",
-                        }}
-                        onFocus={e => (e.currentTarget.style.borderColor = "var(--primary)")}
-                        onBlur={e => (e.currentTarget.style.borderColor = "var(--glass-border)")}
-                      />
-                    </div>
-                  ))}
-
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "0.5rem", letterSpacing: "0.02em" }}>
-                      Tell us about your project
-                    </label>
-                    <textarea
-                      placeholder="What do you need help with? Any budget or timeline details?"
-                      value={form.message}
-                      onChange={e => setForm({ ...form, message: e.target.value })}
-                      rows={4}
-                      required
+              ) : (
+                <>
+                  {/* Card Header */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.65rem" }}>
+                    <div
                       style={{
-                        width: "100%", background: "var(--bg-primary)", border: "1.5px solid var(--glass-border)",
-                        borderRadius: 8, padding: "0.75rem 1rem", fontSize: "0.875rem",
-                        color: "var(--text-primary)", outline: "none", fontFamily: "'Manrope', sans-serif",
-                        resize: "vertical", transition: "border-color 0.2s, background-color 0.2s", boxSizing: "border-box",
+                        background: "#E5A93C",
+                        color: "#020704",
+                        fontSize: "0.72rem",
+                        fontWeight: 800,
+                        letterSpacing: "0.08em",
+                        borderRadius: "100px",
+                        padding: "0.28rem 0.8rem",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.35rem"
                       }}
-                      onFocus={e => (e.currentTarget.style.borderColor = "var(--primary)")}
-                      onBlur={e => (e.currentTarget.style.borderColor = "var(--glass-border)")}
-                    />
+                    >
+                      <span>🚀</span>
+                      <span>START A PROJECT</span>
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.76rem", color: "rgba(255,255,255,0.85)" }} className="reply-time-badge">
+                      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#25D366", display: "inline-block" }} />
+                      <span>We usually reply within <strong style={{ color: "#E5A93C" }}>24 hours</strong></span>
+                    </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="btn-arrow"
-                    style={{
-                      background: "var(--primary)", color: "var(--primary-foreground)",
-                      padding: "0.875rem 2rem", borderRadius: 8, border: "none",
-                      fontSize: "0.9rem", fontWeight: 700, cursor: "pointer",
-                      fontFamily: "'Manrope', sans-serif",
-                      transition: "background 0.2s, transform 0.2s, filter 0.2s",
-                      display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
-                  >
-                    {loading ? "Sending..." : "Send Message"}
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                </form>
-              </>
-            )}
+                  {/* Card Title & Subtitle */}
+                  <h3 className="card-form-title" style={{ fontSize: "1.28rem", fontWeight: 800, margin: "0 0 0.2rem 0", lineHeight: 1.2 }}>
+                    Tell us about your project
+                  </h3>
+                  <p className="card-form-sub" style={{ fontSize: "0.8rem", lineHeight: 1.4, color: "rgba(255,255,255,0.65)", margin: "0 0 0.85rem 0" }}>
+                    Fill in the details and we'll get back to you with the best way forward.
+                  </p>
+
+                  <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+                    {/* Row 1: Name & Email */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", marginBottom: "0.25rem" }} className="input-field-label">
+                          Your Name *
+                        </label>
+                        <div style={{ position: "relative" }}>
+                          <span style={{ position: "absolute", left: "0.85rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.85rem", opacity: 0.6 }}>👤</span>
+                          <input
+                            type="text"
+                            placeholder="Alex Johnson"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            required
+                            className="contact-text-input"
+                            style={{
+                              width: "100%",
+                              padding: "0.58rem 0.85rem 0.58rem 2.2rem",
+                              borderRadius: "9px",
+                              fontSize: "0.82rem",
+                              outline: "none",
+                              boxSizing: "border-box"
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", marginBottom: "0.25rem" }} className="input-field-label">
+                          Email Address *
+                        </label>
+                        <div style={{ position: "relative" }}>
+                          <span style={{ position: "absolute", left: "0.85rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.85rem", opacity: 0.6 }}>✉️</span>
+                          <input
+                            type="email"
+                            placeholder="alex@company.com"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            required
+                            className="contact-text-input"
+                            style={{
+                              width: "100%",
+                              padding: "0.58rem 0.85rem 0.58rem 2.2rem",
+                              borderRadius: "9px",
+                              fontSize: "0.82rem",
+                              outline: "none",
+                              boxSizing: "border-box"
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 2: Business Type Dropdown */}
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", marginBottom: "0.25rem" }} className="input-field-label">
+                        Business Type
+                      </label>
+                      <div style={{ position: "relative" }}>
+                        <span style={{ position: "absolute", left: "0.85rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.85rem", opacity: 0.8, pointerEvents: "none" }}>💼</span>
+                        <select
+                          value={form.business}
+                          onChange={(e) => setForm({ ...form, business: e.target.value })}
+                          className="contact-text-input"
+                          style={{
+                            width: "100%",
+                            padding: "0.58rem 2.2rem 0.58rem 2.2rem",
+                            borderRadius: "9px",
+                            fontSize: "0.82rem",
+                            outline: "none",
+                            boxSizing: "border-box",
+                            cursor: "pointer",
+                            appearance: "none",
+                            WebkitAppearance: "none",
+                            MozAppearance: "none"
+                          }}
+                        >
+                          <option value="Cafe & Bakery">☕ Cafe & Bakery</option>
+                          <option value="Restaurant & Dining">🍽️ Restaurant & Dining</option>
+                          <option value="Gym & Fitness Center">🏋️ Gym & Fitness Center</option>
+                          <option value="Travel & Hospitality">✈️ Travel & Hospitality</option>
+                          <option value="E-commerce Store">🛒 E-commerce Store</option>
+                          <option value="Tech Startup & SaaS">🚀 Tech Startup & SaaS</option>
+                        </select>
+                        <span style={{ position: "absolute", right: "0.85rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.7rem", opacity: 0.7, pointerEvents: "none" }}>▼</span>
+                      </div>
+                    </div>
+
+                    {/* Row 3: Project Message Textarea */}
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", marginBottom: "0.25rem" }} className="input-field-label">
+                        Tell us about your project *
+                      </label>
+                      <div style={{ position: "relative" }}>
+                        <span style={{ position: "absolute", left: "0.85rem", top: "0.7rem", fontSize: "0.85rem", opacity: 0.6 }}>📄</span>
+                        <textarea
+                          placeholder="What do you need help with? Any budget or timeline details?"
+                          value={form.message}
+                          onChange={(e) => setForm({ ...form, message: e.target.value })}
+                          required
+                          rows={3}
+                          className="contact-text-input"
+                          style={{
+                            width: "100%",
+                            padding: "0.58rem 0.85rem 0.58rem 2.2rem",
+                            borderRadius: "9px",
+                            fontSize: "0.82rem",
+                            outline: "none",
+                            resize: "none",
+                            boxSizing: "border-box"
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Row 4: 4 Quick Tags / Actions */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.55rem", margin: "0.2rem 0" }}>
+                      {[
+                        { id: "attach", icon: "📎", title: "Attach Files", sub: "( Optional )" },
+                        { id: "idea", icon: "💡", title: "IDEA", sub: "Share your vision" },
+                        { id: "budget", icon: "💼", title: "BUDGET", sub: "Help us plan" },
+                        { id: "timeline", icon: "⏱️", title: "TIMELINE", sub: "Set expectations" }
+                      ].map((item) => {
+                        const isSelected = form.selectedPills.includes(item.id);
+                        return (
+                          <button
+                            type="button"
+                            key={item.id}
+                            onClick={() => togglePill(item.id)}
+                            className={`contact-quick-pill ${isSelected ? "is-selected" : ""}`}
+                            style={{
+                              borderRadius: "9px",
+                              padding: "0.38rem 0.45rem",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              textAlign: "center",
+                              cursor: "pointer",
+                              transition: "all 0.2s ease"
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.68rem", fontWeight: 800 }}>
+                              <span>{item.icon}</span>
+                              <span>{item.title}</span>
+                            </div>
+                            <div style={{ fontSize: "0.55rem", opacity: 0.7, marginTop: "2px" }}>
+                              {item.sub}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Row 5: Big Send Message Button */}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      style={{
+                        background: "#E5A93C",
+                        color: "#020704",
+                        padding: "0.65rem 1.3rem",
+                        borderRadius: "10px",
+                        border: "none",
+                        fontSize: "0.88rem",
+                        fontWeight: 800,
+                        cursor: loading ? "not-allowed" : "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.65rem",
+                        boxShadow: "0 6px 18px rgba(229, 169, 60, 0.35)",
+                        transition: "transform 0.2s ease, filter 0.2s ease",
+                        marginTop: "0.2rem"
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
+                    >
+                      <span>{loading ? "Sending..." : "Send Message"}</span>
+                      <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#020704", color: "#E5A93C", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        <ArrowRight size={13} strokeWidth={2.5} />
+                      </span>
+                    </button>
+
+                    {/* Row 6: Security Guarantee */}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem", fontSize: "0.66rem", color: "rgba(255,255,255,0.6)", marginTop: "0.2rem" }} className="security-text">
+                      <span>🔒</span>
+                      <span>Your information is safe with us. We never share your data.</span>
+                    </div>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* ================= BOTTOM STATS BAR ================= */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1.5rem",
+            paddingTop: "clamp(0.6rem, 1.2vh, 0.9rem)",
+            borderTop: "1px solid rgba(255, 255, 255, 0.08)"
+          }}
+          className="contact-bottom-bar"
+        >
+          {/* 4 Stats Pills */}
+          <div style={{ display: "flex", gap: "2.2rem", alignItems: "center" }} className="contact-stats-row">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span style={{ fontSize: "1rem" }}>👥</span>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: "0.88rem", lineHeight: 1 }} className="stat-val">10+</div>
+                <div style={{ fontSize: "0.64rem", opacity: 0.65, marginTop: "2px" }}>Projects Delivered</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span style={{ fontSize: "1rem", color: "#E5A93C" }}>💛</span>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: "0.88rem", lineHeight: 1 }} className="stat-val">100%</div>
+                <div style={{ fontSize: "0.64rem", opacity: 0.65, marginTop: "2px" }}>Client Satisfaction</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span style={{ fontSize: "1rem", color: "#6EE7B7" }}>⚡</span>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: "0.88rem", lineHeight: 1 }} className="stat-val">24h</div>
+                <div style={{ fontSize: "0.64rem", opacity: 0.65, marginTop: "2px" }}>Average Response</div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span style={{ fontSize: "1rem" }}>🌐</span>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: "0.88rem", lineHeight: 1 }} className="stat-val">Global</div>
+                <div style={{ fontSize: "0.64rem", opacity: 0.65, marginTop: "2px" }}>Remote Collaboration</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Far Right Tagline */}
+          <div style={{ fontSize: "0.76rem", fontWeight: 600, color: "rgba(255,255,255,0.6)" }} className="contact-bottom-quote">
+            <span>Ideas today. A better tomorrow. —</span>
           </div>
         </div>
       </div>
 
+      {/* ================= CSS STYLES & LIGHT THEME RULES ================= */}
       <style>{`
-        @media (max-width: 900px) {
-          .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+        /* ================= DARK THEME (DEFAULT) ================= */
+        .contact-section {
+          background-color: #020704;
+          color: #ffffff;
+        }
+        .contact-main-title {
+          color: #ffffff;
+        }
+        .contact-main-desc {
+          color: rgba(255, 255, 255, 0.65);
+        }
+        .feature-item-pill {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.85);
+        }
+        .contact-glass-card {
+          background: linear-gradient(165deg, rgba(8, 28, 20, 0.94) 0%, rgba(3, 14, 9, 0.98) 100%);
+        }
+        .contact-text-input {
+          background: rgba(0, 0, 0, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #ffffff;
+          transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .contact-text-input:focus {
+          border-color: #E5A93C !important;
+          background: rgba(0, 0, 0, 0.65) !important;
+        }
+        .contact-quick-pill {
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .contact-quick-pill:hover, .contact-quick-pill.is-selected {
+          background: rgba(229, 169, 60, 0.15) !important;
+          border-color: #E5A93C !important;
+          color: #E5A93C !important;
+        }
+        .contact-detail-val {
+          color: rgba(255, 255, 255, 0.9);
+        }
+        .stat-val {
+          color: #ffffff;
+        }
+
+        /* ================= LIGHT THEME (EVEN SECTION: CRISP WHITE) ================= */
+        html:not(.dark) .contact-section {
+          background-color: #FFFFFF;
+          color: #143026;
+        }
+        html:not(.dark) .contact-main-title {
+          color: #143026;
+        }
+        html:not(.dark) .contact-main-desc {
+          color: #4A6357;
+        }
+        html:not(.dark) .contact-world-graphic {
+          color: rgba(20, 48, 38, 0.4) !important;
+        }
+        html:not(.dark) .feature-item-pill {
+          background: rgba(20, 48, 38, 0.06);
+          border: 1px solid rgba(20, 48, 38, 0.14);
+          color: #143026;
+        }
+        html:not(.dark) .action-card-call {
+          background: rgba(229, 169, 60, 0.08) !important;
+          border-color: rgba(181, 125, 30, 0.4) !important;
+          box-shadow: 0 4px 15px rgba(20, 48, 38, 0.06) !important;
+        }
+        html:not(.dark) .action-card-call .action-card-title {
+          color: #143026 !important;
+        }
+        html:not(.dark) .action-card-call .action-card-sub {
+          color: #4A6357 !important;
+        }
+        html:not(.dark) .action-card-whatsapp {
+          background: rgba(37, 211, 102, 0.08) !important;
+          border-color: rgba(37, 211, 102, 0.4) !important;
+          box-shadow: 0 4px 15px rgba(20, 48, 38, 0.06) !important;
+        }
+        html:not(.dark) .action-card-whatsapp .action-card-title {
+          color: #143026 !important;
+        }
+        html:not(.dark) .action-card-whatsapp .action-card-sub {
+          color: #4A6357 !important;
+        }
+        html:not(.dark) .contact-detail-val {
+          color: #143026;
+        }
+        html:not(.dark) .contact-glass-card {
+          background: linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 248, 245, 0.98) 100%);
+          border: 1.5px solid rgba(20, 48, 38, 0.15) !important;
+          box-shadow: 0 15px 40px rgba(20, 48, 38, 0.08) !important;
+        }
+        html:not(.dark) .card-form-title {
+          color: #143026;
+        }
+        html:not(.dark) .card-form-sub {
+          color: #4A6357;
+        }
+        html:not(.dark) .reply-time-badge {
+          color: #4A6357 !important;
+        }
+        html:not(.dark) .input-field-label {
+          color: #143026 !important;
+        }
+        html:not(.dark) .contact-text-input {
+          background: #FFFFFF;
+          border: 1px solid rgba(20, 48, 38, 0.18);
+          color: #143026;
+        }
+        html:not(.dark) .contact-text-input:focus {
+          border-color: #B57D1E !important;
+          background: #FFFFFF !important;
+        }
+        html:not(.dark) .contact-quick-pill {
+          background: rgba(20, 48, 38, 0.04);
+          border: 1px solid rgba(20, 48, 38, 0.14);
+          color: #143026;
+        }
+        html:not(.dark) .contact-quick-pill:hover, html:not(.dark) .contact-quick-pill.is-selected {
+          background: rgba(181, 125, 30, 0.15) !important;
+          border-color: #B57D1E !important;
+          color: #B57D1E !important;
+        }
+        html:not(.dark) .security-text {
+          color: #5B7569 !important;
+        }
+        html:not(.dark) .contact-sent-title {
+          color: #143026 !important;
+        }
+        html:not(.dark) .contact-sent-desc {
+          color: #4A6357 !important;
+        }
+        html:not(.dark) .contact-bottom-bar {
+          border-top-color: rgba(20, 48, 38, 0.1) !important;
+        }
+        html:not(.dark) .stat-val {
+          color: #143026;
+        }
+        html:not(.dark) .contact-bottom-quote {
+          color: #5B7569 !important;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 960px) {
+          .contact-section { height: auto !important; max-height: none !important; padding: 3.5rem 0 !important; }
+          .contact-main-grid { grid-template-columns: 1fr !important; gap: 2.2rem !important; }
+          .contact-desk-preview { height: 180px !important; }
+          .contact-bottom-bar { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
+          .contact-stats-row { flex-wrap: wrap !important; gap: 1.2rem !important; }
         }
       `}</style>
     </section>

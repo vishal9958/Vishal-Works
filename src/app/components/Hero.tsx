@@ -1,196 +1,391 @@
+import { useEffect, useState } from "react";
+import logoImg from "@/assets/logo.png";
+
 export function Hero() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <section
       id="hero"
+      className="hero-section"
       style={{
         minHeight: "100vh",
-        background: "var(--bg-secondary)",
-        color: "var(--text-primary)",
         display: "flex",
         alignItems: "center",
         fontFamily: "'Manrope', sans-serif",
         overflow: "hidden",
         position: "relative",
-        paddingTop: 72,
+        paddingTop: 60,
         transition: "background-color 0.3s ease, color 0.3s ease",
       }}
     >
-      {/* Subtle background shapes */}
+      {/* Background Elements (Planet Rings & Glows) */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
         <div style={{
-          position: "absolute", top: "10%", right: "-5%", width: 480, height: 480,
-          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 5%, transparent)",
+          position: "absolute", top: "-10%", right: "10%", width: "60vw", height: "60vw",
+          borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 10%, transparent) 0%, transparent 70%)",
           filter: "blur(40px)",
         }} />
         <div style={{
-          position: "absolute", bottom: "5%", left: "-8%", width: 360, height: 360,
-          borderRadius: "50%", background: "color-mix(in srgb, var(--accent) 6%, transparent)",
-          filter: "blur(30px)",
+          position: "absolute", top: "10%", right: "-10%", width: "80vw", height: "80vw",
+          borderRadius: "50%", border: "2px solid color-mix(in srgb, var(--primary) 15%, transparent)",
+          transform: "rotate(-20deg) scaleY(0.4)",
+          boxShadow: "0 0 40px color-mix(in srgb, var(--primary) 20%, transparent)",
         }} />
         <div style={{
-          position: "absolute", top: "35%", left: "40%", width: 200, height: 200,
-          borderRadius: "50%", background: "color-mix(in srgb, var(--primary) 3%, transparent)",
-          filter: "blur(20px)",
+          position: "absolute", top: "12%", right: "-8%", width: "80vw", height: "80vw",
+          borderRadius: "50%", border: "1px solid color-mix(in srgb, var(--primary) 8%, transparent)",
+          transform: "rotate(-20deg) scaleY(0.42)",
         }} />
       </div>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "5rem 2rem 4rem", width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }} className="hero-grid">
-        {/* Left */}
-        <div className="reveal">
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "color-mix(in srgb, var(--primary) 10%, transparent)", borderRadius: 100, padding: "0.4rem 1rem", marginBottom: "2rem" }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--accent)" }} />
-            <span style={{ color: "var(--text-primary)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Bespoke Design & Development</span>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 2rem", width: "100%", display: "grid", gridTemplateColumns: "1fr 1.25fr", gap: "2rem", alignItems: "center", position: "relative", zIndex: 1 }} className="hero-grid">
+        
+        {/* LEFT COLUMN */}
+        <div className="reveal fade-in-up hero-left">
+          
+          {/* Badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+            background: "var(--glass-card-bg)", border: "1px solid var(--glass-border)",
+            borderRadius: 100, padding: "0.3rem 0.8rem", marginBottom: "1.5rem",
+            backdropFilter: "blur(10px)"
+          }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--primary)", boxShadow: "0 0 10px var(--primary)" }} />
+            <span style={{ color: "var(--primary)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              Bespoke Design & Development
+            </span>
           </div>
 
+          {/* Headline */}
           <h1 style={{
-            fontSize: "clamp(2.4rem, 4.5vw, 4rem)", fontWeight: 800, color: "var(--text-primary)",
-            lineHeight: 1.1, letterSpacing: "-0.03em", marginBottom: "1.5rem",
+            fontSize: "clamp(2rem, 3.8vw, 3.5rem)", fontWeight: 800, color: "var(--text-primary)",
+            lineHeight: 1.1, letterSpacing: "-0.03em", marginBottom: "1.2rem",
           }}>
             We design & build<br />
-            <span style={{ color: "var(--primary)" }}>premium websites</span> for<br />
-            growing brands.
+            <span style={{ color: "var(--accent)" }}>premium </span> 
+            <span style={{ color: "var(--primary)" }}>websites</span><br />
+            for growing brands.
           </h1>
 
-          <p style={{ fontSize: "1.05rem", color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 480, marginBottom: "2.5rem", fontWeight: 400 }}>
+          {/* Subtitle */}
+          <p style={{ 
+            fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", color: "var(--text-secondary)", lineHeight: 1.6, 
+            maxWidth: 480, marginBottom: "2rem", fontWeight: 400 
+          }}>
             No templates, no boring layouts. We craft fully custom digital products, web designs, and brand systems that make your business stand out.
           </p>
 
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          {/* Buttons */}
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
             <a
               href="#contact"
-              className="btn-arrow"
               style={{
-                background: "var(--primary)", color: "var(--primary-foreground)", padding: "0.85rem 2rem",
-                borderRadius: 8, textDecoration: "none", fontSize: "0.95rem", fontWeight: 600,
+                background: "var(--accent)", color: "var(--background)", padding: "0.75rem 1.75rem",
+                borderRadius: 8, textDecoration: "none", fontSize: "0.9rem", fontWeight: 700,
                 display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                transition: "background 0.2s, transform 0.2s, filter 0.2s",
+                transition: "transform 0.2s, filter 0.2s",
+                boxShadow: "0 4px 15px color-mix(in srgb, var(--accent) 30%, transparent)"
               }}
-              onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.filter = "brightness(1.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.filter = "none"; }}
             >
               Start a Project
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
             <a
               href="#work"
               style={{
-                background: "transparent", color: "var(--text-primary)", padding: "0.85rem 2rem",
-                borderRadius: 8, textDecoration: "none", fontSize: "0.95rem", fontWeight: 600,
-                border: "1.5px solid color-mix(in srgb, var(--primary) 25%, transparent)",
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                transition: "border-color 0.2s, transform 0.2s, background-color 0.2s",
+                background: "var(--glass-card-bg)", color: "var(--text-primary)", padding: "0.75rem 1.75rem",
+                borderRadius: 8, textDecoration: "none", fontSize: "0.9rem", fontWeight: 600,
+                border: "1px solid var(--glass-border)",
+                display: "inline-flex", alignItems: "center", gap: "0.6rem",
+                backdropFilter: "blur(10px)",
+                transition: "background 0.2s, border-color 0.2s",
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.background = "color-mix(in srgb, var(--primary) 5%, transparent)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "color-mix(in srgb, var(--primary) 25%, transparent)"; e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "none"; }}
+              onMouseEnter={e => { e.currentTarget.style.background = "color-mix(in srgb, var(--primary) 10%, transparent)"; e.currentTarget.style.borderColor = "var(--primary)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "var(--glass-card-bg)"; e.currentTarget.style.borderColor = "var(--glass-border)"; }}
             >
+              <div style={{ width: 20, height: 20, borderRadius: "50%", background: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="var(--background)"><path d="M8 5v14l11-7z"/></svg>
+              </div>
               View Our Work
             </a>
           </div>
 
-          <div style={{ display: "flex", gap: "2.5rem", marginTop: "3rem" }}>
-            {[["100%", "Custom Coded"], ["99+", "PageSpeed Score"], ["Mobile", "First Layout"]].map(([num, label]) => (
-              <div key={label}>
-                <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--primary)", letterSpacing: "-0.02em" }}>{num}</div>
-                <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500 }}>{label}</div>
+          {/* Stats Grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginBottom: "2rem" }} className="stats-grid">
+            {[
+              { icon: "👥", value: "10+", label: "Projects Delivered" },
+              { icon: "⭐", value: "100%", label: "Client Satisfaction" },
+              { icon: "⚡", value: "Modern", label: "Tech Stack" },
+              { icon: "🌐", value: "Global", label: "Remote & On-site" },
+            ].map((stat, i) => (
+              <div key={i} style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
+                <div style={{ fontSize: "1.1rem", color: "var(--accent)" }}>{stat.icon}</div>
+                <div>
+                  <div style={{ fontSize: "1rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.1rem" }}>{stat.value}</div>
+                  <div style={{ fontSize: "0.65rem", color: "var(--text-secondary)", fontWeight: 500 }}>{stat.label}</div>
+                </div>
               </div>
             ))}
           </div>
+
         </div>
 
-        {/* Right — mockup showcase */}
-        <div style={{ position: "relative" }} className="reveal reveal-delay-2">
-          {/* Browser mockup */}
-          <div className="glass-panel" style={{
-            borderRadius: 16,
-            overflow: "hidden",
-          }}>
-            {/* Browser chrome */}
-            <div style={{ background: "var(--bg-secondary)", padding: "0.75rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid var(--glass-border)" }}>
-              <div style={{ display: "flex", gap: 5 }}>
-                {["#E74C3C", "#F39C12", "#2ECC71"].map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
-              </div>
-              <div style={{ flex: 1, background: "var(--bg-primary)", borderRadius: 4, padding: "0.25rem 0.75rem", fontSize: "0.7rem", color: "var(--text-secondary)", textAlign: "center", maxWidth: 200, margin: "0 auto" }}>vishalworks.co</div>
-            </div>
-            {/* Site preview */}
-            <div style={{ background: "#143D35", padding: "2rem", position: "relative", minHeight: 220 }}>
-              <div style={{ marginBottom: "1rem" }}>
-                <div style={{ width: 80, height: 6, background: "rgba(255,255,255,0.9)", borderRadius: 3, marginBottom: 10 }} />
-                <div style={{ width: 140, height: 4, background: "rgba(200,161,90,0.8)", borderRadius: 3, marginBottom: 6 }} />
-                <div style={{ width: 110, height: 4, background: "rgba(255,255,255,0.3)", borderRadius: 3, marginBottom: 16 }} />
-                <div style={{ display: "flex", gap: 8 }}>
-                  <div style={{ width: 80, height: 28, background: "#C8A15A", borderRadius: 5 }} />
-                  <div style={{ width: 80, height: 28, background: "rgba(255,255,255,0.1)", borderRadius: 5, border: "1px solid rgba(255,255,255,0.2)" }} />
+        {/* RIGHT COLUMN (3D MOCKUP) */}
+        <div className="reveal fade-in-up reveal-delay-2 right-column-container" style={{ position: "relative", perspective: 1200 }}>
+          
+          <div className="mockup-scaler" style={{ width: "100%", transformStyle: "preserve-3d" }}>
+            <div className="mockup-inner" style={{
+              position: "relative",
+              transform: `rotateY(-12deg) rotateX(4deg) rotateZ(1deg) translateY(${mousePos.y * 0.5}px) translateX(${mousePos.x * 0.5}px)`,
+              transformStyle: "preserve-3d",
+              transition: "transform 0.1s ease-out",
+              zIndex: 2,
+            }}>
+              {/* Main Dashboard Mockup */}
+            <div style={{
+              background: "var(--bg-secondary)",
+              borderRadius: 16,
+              border: "1px solid var(--glass-border)",
+              boxShadow: "-20px 20px 60px rgba(0,0,0,0.15), 0 0 40px color-mix(in srgb, var(--primary) 10%, transparent)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              {/* Top Bar */}
+              <div style={{ background: "color-mix(in srgb, var(--bg-primary) 50%, transparent)", padding: "0.6rem 1rem", display: "flex", alignItems: "center", borderBottom: "1px solid var(--glass-border)" }}>
+                <div style={{ display: "flex", gap: 6 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF5F56" }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FFBD2E" }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#27C93F" }} />
+                </div>
+                <div style={{ margin: "0 auto", background: "var(--bg-secondary)", padding: "0.2rem 2rem", borderRadius: 4, fontSize: "0.65rem", color: "var(--text-secondary)" }}>
+                  sideone.co
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 12, marginTop: "1.5rem" }}>
-                {[1, 2, 3].map(i => (
-                  <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.07)", borderRadius: 8, padding: "0.75rem", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <div style={{ width: 24, height: 24, background: "rgba(200,161,90,0.3)", borderRadius: 6, marginBottom: 8 }} />
-                    <div style={{ width: "70%", height: 4, background: "rgba(255,255,255,0.6)", borderRadius: 2, marginBottom: 5 }} />
-                    <div style={{ width: "50%", height: 3, background: "rgba(255,255,255,0.3)", borderRadius: 2 }} />
+
+              {/* Dashboard Layout */}
+              <div style={{ display: "flex" }}>
+                {/* Sidebar */}
+                <div style={{ width: 120, borderRight: "1px solid var(--glass-border)", padding: "1.2rem 0.8rem", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                  <div style={{ width: 26, height: 26, borderRadius: 6, overflow: "hidden", border: "1px solid rgba(229, 169, 60, 0.4)", marginBottom: "0.5rem" }}>
+                    <img src={logoImg} alt="SIDEONE" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   </div>
-                ))}
+                  {["Dashboard", "Projects", "Analytics", "Clients", "Messages", "Settings"].map((item, i) => (
+                    <div key={item} style={{ 
+                      display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.65rem", 
+                      color: i === 0 ? "var(--primary)" : "var(--text-secondary)",
+                      background: i === 0 ? "color-mix(in srgb, var(--primary) 10%, transparent)" : "transparent",
+                      padding: "0.4rem 0.5rem", borderRadius: 6,
+                    }}>
+                      <div style={{ width: 10, height: 10, border: i === 0 ? "1.5px solid var(--primary)" : "1.5px solid var(--glass-border)", borderRadius: 3 }} />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Main Content Area */}
+                <div style={{ flex: 1, padding: "1.5rem", background: "var(--bg-primary)" }}>
+                  <div style={{ display: "flex", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ fontSize: "1.4rem", color: "var(--text-primary)", fontWeight: 700, lineHeight: 1.2, marginBottom: "0.4rem" }}>
+                        Turn Ideas Into <br/> <span style={{ color: "var(--primary)" }}>Real Products.</span>
+                      </h3>
+                      <p style={{ fontSize: "0.65rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>Design. Develop. Deploy. Scale.</p>
+                      <button style={{ background: "var(--primary)", color: "var(--primary-foreground)", border: "none", padding: "0.5rem 1rem", borderRadius: 6, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                        <span>Start a Project</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Chart Widget */}
+                    <div style={{ flex: 1, background: "var(--glass-card-bg)", border: "1px solid var(--glass-border)", borderRadius: 12, padding: "0.75rem" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+                        <div style={{ fontSize: "0.65rem", color: "var(--text-secondary)" }}>Growth</div>
+                        <div style={{ color: "var(--text-primary)" }}>...</div>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "flex-end", gap: "0.5rem", height: 70, position: "relative" }}>
+                        <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 40">
+                          <path d="M0,35 Q10,30 20,32 T40,25 T60,15 T80,20 T100,5" fill="none" stroke="var(--primary)" strokeWidth="2" />
+                          <path d="M0,35 Q10,30 20,32 T40,25 T60,15 T80,20 T100,5 L100,40 L0,40 Z" fill="url(#grad)" />
+                          <defs>
+                            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
+                              <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <div style={{ position: "absolute", top: 0, right: 10, background: "var(--text-primary)", padding: "0.2rem 0.5rem", borderRadius: 4, fontSize: "0.6rem", border: "1px solid var(--glass-border)" }}>
+                          <span style={{ color: "var(--background)", fontWeight: 700 }}>+248%</span><br/>
+                          <span style={{ color: "var(--background)", opacity: 0.8, fontSize: "0.5rem" }}>Last 6 months</span>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.25rem", fontSize: "0.5rem", color: "var(--text-secondary)" }}>
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Stats Row */}
+                  <div style={{ display: "flex", gap: "0.75rem" }}>
+                    {[
+                      { icon: "📊", title: "Projects", val: "10+" },
+                      { icon: "💚", title: "Happy Clients", val: "100%" },
+                      { icon: "🛡️", title: "Uptime", val: "99.9%" },
+                    ].map(stat => (
+                      <div key={stat.title} style={{ flex: 1, background: "var(--glass-card-bg)", border: "1px solid var(--glass-border)", borderRadius: 8, padding: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <div style={{ width: 28, height: 28, background: "color-mix(in srgb, var(--primary) 10%, transparent)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem" }}>
+                          {stat.icon}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "0.55rem", color: "var(--text-secondary)" }}>{stat.title}</div>
+                          <div style={{ fontSize: "0.9rem", color: "var(--text-primary)", fontWeight: 700 }}>{stat.val}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Floating card 1 */}
-          <div
-            className="hero-card-1 glass-panel"
-            style={{
-              position: "absolute", bottom: -20, left: -30,
-              borderRadius: 12, padding: "0.875rem 1.125rem",
-              display: "flex", alignItems: "center", gap: "0.75rem",
-            }}
-          >
-            <div style={{ width: 36, height: 36, background: "var(--primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 12.5L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="var(--primary-foreground)"/>
+            {/* Floating Glass Card 1 (Top Right) */}
+            <div className="floating-card-1" style={{
+              position: "absolute", top: -15, right: -25,
+              background: "var(--glass-bg)", backdropFilter: "blur(15px)",
+              border: "1px solid var(--glass-border)", borderRadius: 12,
+              padding: "0.75rem 1rem", display: "flex", alignItems: "center", gap: "0.75rem",
+              transform: "translateZ(40px)",
+              boxShadow: "var(--glass-shadow)",
+              animation: "float 6s ease-in-out infinite",
+            }}>
+              <div style={{ width: 32, height: 32, background: "var(--bg-secondary)", border: "1px solid var(--primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </div>
+              <div>
+                <div style={{ fontSize: "0.65rem", color: "var(--text-secondary)" }}>Website Traffic</div>
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "var(--text-primary)" }}>+248%</div>
+                <div style={{ fontSize: "0.55rem", color: "var(--text-secondary)" }}>Last 6 months</div>
+              </div>
+            </div>
+
+            {/* Floating Glass Card 2 (Bottom Right) */}
+            <div className="floating-card-2" style={{
+              position: "absolute", bottom: -15, right: -5,
+              background: "var(--glass-bg)", backdropFilter: "blur(15px)",
+              border: "1px solid var(--glass-border)", borderRadius: 100,
+              padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.75rem",
+              transform: "translateZ(60px)",
+              boxShadow: "var(--glass-shadow)",
+              animation: "float 8s ease-in-out infinite reverse",
+            }}>
+              <div style={{ display: "flex", marginLeft: 10 }}>
+                {[1, 2, 3].map(i => (
+                  <div key={i} style={{ 
+                    width: 24, height: 24, borderRadius: "50%", background: "#ccc", 
+                    marginLeft: -10, border: "2px solid var(--bg-primary)",
+                    backgroundImage: `url(https://i.pravatar.cc/100?img=${i+10})`, backgroundSize: "cover"
+                  }} />
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-primary)" }}>Happy Clients</div>
+                <div style={{ fontSize: "0.55rem", color: "var(--text-secondary)" }}>Building together globally</div>
+              </div>
+              <div style={{ color: "var(--primary)", fontSize: "1rem", marginLeft: "0.25rem" }}>🌐</div>
+            </div>
+
+            {/* Hand-drawn Arrow and Text */}
+            <div className="arrow-text" style={{
+              position: "absolute", bottom: -45, left: 60,
+              transform: "translateZ(20px)",
+              display: "flex", alignItems: "flex-start", gap: "0.5rem"
+            }}>
+              <div style={{ fontFamily: "'Caveat', cursive, sans-serif", color: "var(--text-primary)", fontSize: "0.9rem", lineHeight: 1.2, transform: "rotate(-5deg)", width: 100 }}>
+                Custom dashboards, <br/> real results.
+              </div>
+              <svg width="30" height="40" viewBox="0 0 50 80" fill="none" style={{ transform: "rotate(-20deg) translateY(-20px)" }}>
+                <path d="M5,75 Q30,60 45,10 M35,15 L45,10 L48,25" stroke="var(--text-primary)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <div>
-              <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Manrope', sans-serif" }}>Handcrafted Design</div>
-              <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontFamily: "'Manrope', sans-serif" }}>Tailored to your needs</div>
-            </div>
-          </div>
 
-          {/* Floating card 2 */}
-          <div
-            className="hero-card-2"
-            style={{
-              position: "absolute", top: 20, right: -24,
-              background: "#143D35", borderRadius: 12, padding: "0.875rem 1.125rem",
-              boxShadow: "0 16px 40px rgba(20,61,53,0.25)",
-              display: "flex", alignItems: "center", gap: "0.75rem",
-            }}
-          >
-            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#C8A15A", fontFamily: "'Manrope', sans-serif" }}>99+</div>
-            <div>
-              <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "#fff", fontFamily: "'Manrope', sans-serif" }}>Speed Score</div>
-              <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", fontFamily: "'Manrope', sans-serif" }}>SEO & Performance ready</div>
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            gap: 3rem !important;
-          }
+        /* ================= DARK THEME (ODD SECTION) ================= */
+        .hero-section {
+          background-color: #06130D;
+          background-image: radial-gradient(circle at 70% 40%, rgba(20, 61, 53, 0.28) 0%, #06130D 70%);
+          color: #F5F4EE;
         }
-        @media (max-width: 500px) {
-          .hero-card-1 {
-            left: 0px !important;
-            bottom: 10px !important;
-          }
-          .hero-card-2 {
-            right: 0px !important;
-            top: 10px !important;
-          }
+
+        /* ================= LIGHT THEME (CREAM BACKGROUND) ================= */
+        html:not(.dark) .hero-section {
+          background-color: #F6F5F0;
+          background-image: radial-gradient(circle at 70% 40%, rgba(190, 225, 210, 0.35) 0%, #F6F5F0 70%);
+          color: #143026;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0px) translateZ(40px); }
+          50% { transform: translateY(-15px) translateZ(40px); }
+          100% { transform: translateY(0px) translateZ(40px); }
+        }
+        .fade-in-up {
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .reveal-delay-2 { animation-delay: 0.2s; }
+        
+        @keyframes fadeInUp {
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Perfect scaling for smaller laptops / desktops to fit without scroll */
+        @media (min-width: 1441px) {
+           .mockup-scaler { transform: scale(1.15); transform-origin: center right; }
+        }
+        @media (max-width: 1440px) {
+           .mockup-scaler { transform: scale(1.05); transform-origin: center right; }
+        }
+        @media (max-width: 1280px) {
+           .hero-left h1 { font-size: 2.8rem !important; }
+           .mockup-scaler { transform: scale(0.95); transform-origin: center right; }
+        }
+
+        /* Responsive stacking for smaller screens */
+        @media (max-width: 1024px) {
+           .hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; padding-top: 4rem !important; padding-bottom: 4rem !important; }
+           .mockup-scaler { transform: scale(0.9); transform-origin: center; }
+           .mockup-inner { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateY(0) translateX(0) !important; }
+           .arrow-text { display: none !important; }
+        }
+        @media (max-width: 600px) {
+           .hero-left h1 { font-size: 2.2rem !important; }
+           .stats-grid { grid-template-columns: 1fr !important; }
+           .mockup-scaler { transform: scale(1); }
+           .floating-card-1, .floating-card-2 { display: none !important; }
+           .right-column-container { display: none !important; }
         }
       `}</style>
     </section>

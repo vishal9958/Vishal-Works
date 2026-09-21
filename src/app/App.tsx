@@ -6,7 +6,7 @@ import { Industries } from "./components/Industries";
 import { FeaturedWork } from "./components/FeaturedWork";
 import { Process } from "./components/Process";
 import { About } from "./components/About";
-import { Testimonials } from "./components/Testimonials";
+import { Team } from "./components/Team";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -62,14 +62,12 @@ export default function App() {
           const targetId = href.substring(1);
           const element = document.getElementById(targetId);
           if (element) {
-            const offset = 72; // Header height
             const bodyRect = document.body.getBoundingClientRect().top;
             const elementRect = element.getBoundingClientRect().top;
             const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
 
             window.scrollTo({
-              top: offsetPosition,
+              top: elementPosition,
               behavior: "smooth",
             });
           }
@@ -95,7 +93,7 @@ export default function App() {
         <FeaturedWork />
         <Process />
         <About />
-        <Testimonials />
+        <Team />
         <Contact />
       </main>
       <Footer />

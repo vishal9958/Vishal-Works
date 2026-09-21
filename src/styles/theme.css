@@ -41,15 +41,17 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Custom Glassmorphism & alternating section variables (Light Mode) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #F5F4EE;
+  --bg-primary: #F6F5F0;
+  --bg-secondary: #ffffff;
+  --bg-odd: #F6F5F0;
+  --bg-even: #ffffff;
   --text-primary: #1B1B1B;
   --text-secondary: #666666;
-  --glass-bg: rgba(255, 255, 255, 0.45);
-  --glass-card-bg: rgba(255, 255, 255, 0.55);
-  --glass-card-on-white: rgba(245, 244, 238, 0.5);
-  --glass-card-on-cream: rgba(255, 255, 255, 0.45);
-  --glass-border: rgba(20, 61, 53, 0.08);
+  --glass-bg: rgba(246, 245, 240, 0.75);
+  --glass-card-bg: rgba(255, 255, 255, 0.65);
+  --glass-card-on-white: rgba(246, 245, 240, 0.85);
+  --glass-card-on-cream: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(20, 61, 53, 0.09);
   --glass-blur: blur(16px);
   --glass-shadow: 0 8px 32px 0 rgba(20, 61, 53, 0.06);
   --hero-card-accent: #C8A15A;
@@ -60,7 +62,7 @@
 }
 
 html.dark, :root.dark, .dark {
-  --background: #091613;
+  --background: #06130D;
   --foreground: #F5F4EE;
   --card: #0F2520;
   --card-foreground: #F5F4EE;
@@ -94,11 +96,13 @@ html.dark, :root.dark, .dark {
   --sidebar-ring: #C8A15A;
 
   /* Custom Glassmorphism & alternating section variables (Dark Mode) */
-  --bg-primary: #050D0B;
-  --bg-secondary: #0F2520;
+  --bg-primary: #06130D;
+  --bg-secondary: #020704;
+  --bg-odd: #06130D;
+  --bg-even: #020704;
   --text-primary: #F5F4EE;
   --text-secondary: rgba(245, 244, 238, 0.65);
-  --glass-bg: rgba(9, 22, 19, 0.6);
+  --glass-bg: rgba(6, 19, 13, 0.75);
   --glass-card-bg: rgba(255, 255, 255, 0.03);
   --glass-card-on-white: rgba(255, 255, 255, 0.03);
   --glass-card-on-cream: rgba(255, 255, 255, 0.03);
