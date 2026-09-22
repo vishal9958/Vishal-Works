@@ -21,9 +21,15 @@ export default function App() {
       document.documentElement.classList.remove("dark");
     }
 
-    // 2. Remove initial URL hash if present
-    if (window.location.hash) {
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    // 2. Scroll to initial hash if loaded directly (e.g. /#process or /#contact)
+    if (window.location.hash && window.location.hash.length > 1) {
+      const targetId = window.location.hash.substring(1);
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 200);
     }
 
     // 2. Global scroll observer for visual elements
@@ -53,8 +59,12 @@ export default function App() {
       if (href && href.startsWith("#")) {
         e.preventDefault();
         
-        if (href === "#" || href === "#top" || href === "#hero") {
+        if (href === "#" || href === "#top" || href === "#hero" || href === "") {
           window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+          document.documentElement.scrollTo({
             top: 0,
             behavior: "smooth",
           });
@@ -62,10 +72,9 @@ export default function App() {
           const targetId = href.substring(1);
           const element = document.getElementById(targetId);
           if (element) {
-            const targetY = element.getBoundingClientRect().top + window.scrollY - 75;
-            window.scrollTo({
-              top: Math.max(0, targetY),
+            element.scrollIntoView({
               behavior: "smooth",
+              block: "start"
             });
           }
         }

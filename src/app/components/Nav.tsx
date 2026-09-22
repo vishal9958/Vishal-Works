@@ -41,11 +41,7 @@ export function Nav() {
     }
     const element = document.getElementById(targetId);
     if (element) {
-      const targetY = element.getBoundingClientRect().top + window.scrollY - 75;
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth"
-      });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -57,18 +53,19 @@ export function Nav() {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 100,
+          zIndex: 99999,
           transition: "background 0.3s ease, box-shadow 0.3s ease",
           background: scrolled ? "var(--glass-bg)" : "transparent",
           boxShadow: scrolled ? "0 1px 0 var(--border)" : "none",
           backdropFilter: scrolled ? "var(--glass-blur)" : "none",
           fontFamily: "'Manrope', sans-serif",
+          pointerEvents: "auto",
         }}
       >
         <nav style={{ maxWidth: 1280, margin: "0 auto", padding: "0 2rem", height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a 
-            href="#" 
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            href="#hero" 
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); document.documentElement.scrollTo({ top: 0, behavior: "smooth" }); }}
             style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none" }}
           >
             <div style={{ 
