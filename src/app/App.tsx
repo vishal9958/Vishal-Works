@@ -60,6 +60,10 @@ export default function App() {
         e.preventDefault();
         
         if (href === "#" || href === "#top" || href === "#hero" || href === "") {
+          const hero = document.getElementById("hero");
+          if (hero) {
+            hero.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
           window.scrollTo({
             top: 0,
             behavior: "smooth",

@@ -36,7 +36,12 @@ export function Nav() {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     if (targetId === "" || targetId === "#" || targetId === "hero" || targetId === "top") {
+      const hero = document.getElementById("hero");
+      if (hero) {
+        hero.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     const element = document.getElementById(targetId);
@@ -65,8 +70,9 @@ export function Nav() {
         <nav style={{ maxWidth: 1280, margin: "0 auto", padding: "0 2rem", height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a 
             href="#hero" 
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); document.documentElement.scrollTo({ top: 0, behavior: "smooth" }); }}
-            style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none" }}
+            onClick={(e) => handleScroll(e, "hero")}
+            style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none", cursor: "pointer" }}
+            title="SIDEONE - Home"
           >
             <div style={{ 
               width: 36, 
