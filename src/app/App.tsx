@@ -66,10 +66,7 @@ export default function App() {
           }
           window.scrollTo({
             top: 0,
-            behavior: "smooth",
-          });
-          document.documentElement.scrollTo({
-            top: 0,
+            left: 0,
             behavior: "smooth",
           });
         } else {
@@ -94,7 +91,7 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Manrope', sans-serif", background: "var(--bg-primary)", color: "var(--text-primary)", transition: "background-color 0.3s ease, color 0.3s ease", overflowX: "hidden", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "'Manrope', sans-serif", background: "var(--bg-primary)", color: "var(--text-primary)", transition: "background-color 0.3s ease, color 0.3s ease", overflowX: "clip", minHeight: "100vh" }}>
       <Nav />
       <main>
         <Hero />

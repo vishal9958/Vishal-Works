@@ -35,15 +35,22 @@ export function Nav() {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    if (targetId === "" || targetId === "#" || targetId === "hero" || targetId === "top") {
+    e.stopPropagation();
+    setMenuOpen(false);
+
+    if (!targetId || targetId === "hero" || targetId === "top" || targetId === "#") {
       const hero = document.getElementById("hero");
       if (hero) {
         hero.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
       return;
     }
+
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });

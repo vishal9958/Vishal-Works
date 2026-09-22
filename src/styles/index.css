@@ -2,15 +2,16 @@
 @import './tailwind.css';
 @import './theme.css';
 
-/* Global responsive & overflow safety */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: clip;
 }
 
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
 }
