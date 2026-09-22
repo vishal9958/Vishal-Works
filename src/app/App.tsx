@@ -44,7 +44,7 @@ export default function App() {
     const elements = document.querySelectorAll(".reveal");
     elements.forEach((el) => observer.observe(el));
 
-    // 3. Global click interceptor for all hash anchors to prevent URL bar hash additions
+    // 3. Global click interceptor for all hash anchors to smoothly scroll to targets with nav offset
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;
@@ -53,7 +53,7 @@ export default function App() {
       if (href && href.startsWith("#")) {
         e.preventDefault();
         
-        if (href === "#") {
+        if (href === "#" || href === "#top" || href === "#hero") {
           window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -62,12 +62,9 @@ export default function App() {
           const targetId = href.substring(1);
           const element = document.getElementById(targetId);
           if (element) {
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = element.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-
+            const targetY = element.getBoundingClientRect().top + window.scrollY - 75;
             window.scrollTo({
-              top: elementPosition,
+              top: Math.max(0, targetY),
               behavior: "smooth",
             });
           }

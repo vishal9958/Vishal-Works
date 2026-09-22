@@ -207,12 +207,12 @@ export function Hero() {
                         Turn Ideas Into <br/> <span style={{ color: "var(--primary)" }}>Real Products.</span>
                       </h3>
                       <p style={{ fontSize: "0.65rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>Design. Develop. Deploy. Scale.</p>
-                      <button style={{ background: "var(--primary)", color: "var(--primary-foreground)", border: "none", padding: "0.5rem 1rem", borderRadius: 6, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                      <a href="#contact" style={{ background: "var(--primary)", color: "var(--primary-foreground)", textDecoration: "none", padding: "0.5rem 1rem", borderRadius: 6, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
                         <span>Start a Project</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
-                      </button>
+                      </a>
                     </div>
 
                     {/* Chart Widget */}

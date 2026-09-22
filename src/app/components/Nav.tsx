@@ -31,18 +31,19 @@ export function Nav() {
     }
   };
 
-  const links = ["Services", "Work", "Process", "About", "Team", "Contact"];
+  const links = ["Services", "Industries", "Work", "Process", "About", "Team", "Contact"];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    if (targetId === "" || targetId === "#" || targetId === "hero" || targetId === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const element = document.getElementById(targetId);
     if (element) {
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect - 75;
-
+      const targetY = element.getBoundingClientRect().top + window.scrollY - 75;
       window.scrollTo({
-        top: elementPosition,
+        top: Math.max(0, targetY),
         behavior: "smooth"
       });
     }
